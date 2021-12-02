@@ -87,7 +87,7 @@ example:
 ```jsx
 import { TableGrid } from 'ionic-react-tablegrid'
 const rows = [
-		{name: 'John', age: 20, eyes: 'brown',},
+		{name: 'John', age: 20, eyes: 'brown'},
 		{name: 'Jane', age: 21, eyes: 'blue'},
 		{name: 'Joe', age: 22, eyes: 'green'},
 		{name: 'Jack', age: 23, eyes: 'brown'},
