@@ -1,21 +1,24 @@
 import React from 'react'
+
 import { Sort } from './models/Sort'
 import { UtilsService } from './services/utils.service'
 import TableColumnSort from './TableColumnSort'
+
 import './TableGrid.css'
 
 interface ContainerProps {
 	rows: any[];
-    rowClick: Function;
+    rowClick?: Function;
 	sort?: Sort;
 	changeSortCallback?: Function;
 	sortableColumns?: (string|null)[];
+	headerStyle?: object;
+	rowStyle?: object;
 }
 
 const utilsService = new UtilsService()
 
-const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, changeSortCallback, sortableColumns }) => {
-	console.log('tableGrid, sortableColumns, sort', sortableColumns, sort);
+export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle }) => {
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows)
 	return (
@@ -25,10 +28,10 @@ const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, changeSortC
 					<tr key={utilsService.randomKey()}>
 						{keys.map((keyname, index) => (
 							<td
-								style={{ verticalAlign: 'bottom', width: columnWidths[index] + 'px' }}
-								className='breakItUp'
+								style={{ verticalAlign: 'bottom', width: columnWidths[index] + 'px', ...headerStyle }}
+								className='breakItUp TableGrid-header'
 								key={utilsService.randomKey()}>
-								<strong>{keyname}</strong>
+								{keyname}
 								{sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&  						
 									<TableColumnSort sort={sort} columnName={sortableColumns[index]} callback={changeSortCallback}/>
 								}
@@ -36,14 +39,14 @@ const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, changeSortC
 						))}
 					</tr>
 					{rows.map((row, index) => (
-						<tr key={utilsService.randomKey()} onClick={() => {rowClick(row, index)}}>
+						<tr key={utilsService.randomKey()} onClick={() => {rowClick ? rowClick(row, index) : {} }}>
 							{keys.map((key, index) => {
 								// if (!Array.isArray(row[key])) {
 								if (typeof row[key] !== 'object') {
 									return (
 										<td
-											style={{ width: columnWidths[index] + 'px' }}
-											className='breakItUp boxed'
+											style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{row[key]}
 										</td>
@@ -52,7 +55,7 @@ const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, changeSortC
 									return (
 										<td
 											style={{ width: columnWidths[index] + 'px' }}
-											className='breakItUp boxed'
+											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{JSON.stringify(row[key])}
 										</td>
@@ -67,4 +70,4 @@ const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, changeSortC
 	)
 }
 
-export default TableGrid
+// export default TableGrid;

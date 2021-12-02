@@ -29,7 +29,7 @@ var UtilsService = /** @class */ (function () {
             for (var j = 0; j < keys.length; j++) {
                 var textWidth = _this.getTextWidth(keys[j]);
                 if (typeof columnWidths[j] !== 'number' || textWidth > columnWidths[j]) {
-                    columnWidths[j] = textWidth + 35;
+                    columnWidths[j] = textWidth + 40; // 35;
                 }
                 for (var k = 0; k < obj.length; k++) {
                     var item = obj[k][keys[j]];

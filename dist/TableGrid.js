@@ -14,22 +14,19 @@ import { UtilsService } from './services/utils.service';
 import TableColumnSort from './TableColumnSort';
 import './TableGrid.css';
 var utilsService = new UtilsService();
-var TableGrid = function (_a) {
-    var rows = _a.rows, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns;
-    console.log('tableGrid, sortableColumns, sort', sortableColumns, sort);
+export var TableGrid = function (_a) {
+    var rows = _a.rows, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle;
     var keys = Object.keys(rows[0] || []);
     var _b = utilsService.getGridWidths(rows), gridWidth = _b.gridWidth, columnWidths = _b.columnWidths;
-    return (_jsx("div", __assign({ style: { height: '100%', overflow: 'scroll' } }, { children: _jsx("table", __assign({ style: { width: gridWidth + 'px' } }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) { return (_jsxs("td", __assign({ style: { verticalAlign: 'bottom', width: columnWidths[index] + 'px' }, className: 'breakItUp' }, { children: [_jsx("strong", { children: keyname }, void 0),
-                                sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
+    return (_jsx("div", __assign({ style: { height: '100%', overflow: 'scroll' } }, { children: _jsx("table", __assign({ style: { width: gridWidth + 'px' } }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) { return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom', width: columnWidths[index] + 'px' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [keyname, sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
                                     _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey())); }) }, utilsService.randomKey()),
-                    rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () { rowClick(row, index); } }, { children: keys.map(function (key, index) {
+                    rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () { rowClick ? rowClick(row, index) : {}; } }, { children: keys.map(function (key, index) {
                             // if (!Array.isArray(row[key])) {
                             if (typeof row[key] !== 'object') {
-                                return (_jsx("td", __assign({ style: { width: columnWidths[index] + 'px' }, className: 'breakItUp boxed' }, { children: row[key] }), utilsService.randomKey()));
+                                return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle), className: 'breakItUp TableGrid-row' }, { children: row[key] }), utilsService.randomKey()));
                             }
                             else {
-                                return (_jsx("td", __assign({ style: { width: columnWidths[index] + 'px' }, className: 'breakItUp boxed' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
+                                return (_jsx("td", __assign({ style: { width: columnWidths[index] + 'px' }, className: 'breakItUp TableGrid-row' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
                             }
                         }) }), utilsService.randomKey())); })] }, void 0) }), utilsService.randomKey()) }), void 0));
 };
-export default TableGrid;

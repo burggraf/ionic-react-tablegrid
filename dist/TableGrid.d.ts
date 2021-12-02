@@ -3,10 +3,12 @@ import { Sort } from './models/Sort';
 import './TableGrid.css';
 interface ContainerProps {
     rows: any[];
-    rowClick: Function;
+    rowClick?: Function;
     sort?: Sort;
     changeSortCallback?: Function;
     sortableColumns?: (string | null)[];
+    headerStyle?: object;
+    rowStyle?: object;
 }
-declare const TableGrid: React.FC<ContainerProps>;
-export default TableGrid;
+export declare const TableGrid: React.FC<ContainerProps>;
+export {};
