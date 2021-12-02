@@ -1,6 +1,18 @@
 # ionic-react-tablegrid
 
 This is a React component for displaying interactive grids. 
+
+quick example:
+```jsx    
+<TableGrid rows={rows} /* [{name:'Bob',age:22,eyes:'blue'},{name:'Al',age:33,eyes:'brown'}] */
+    rowClick={clickHandler} /* (row, index) => { console.log(row, index) } */
+    sort={{"name", true}} /* currently data is sorted on name, ascending */
+    changeSortCallback={changeSort} /* (sort: any) => { console.log(sort) } */
+    sortableColumns={['name','age','eyes']} /* pass this string when the sort icon is clicked */
+    headerStyle={{backgroundColor: 'gray'}} /* optional styles for header row */
+    rowStyle={{backgroundColor: 'white'}} /* optional styles for detail rows */
+/>
+```
 ## Features
 - automatically set the width of each column based on the content it contains (including the content from all detail rows)
 - function to execute on row click
