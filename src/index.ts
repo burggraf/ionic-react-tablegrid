@@ -1,1 +1,1 @@
-export * from './exampleModule'
+export * from './TableGrid'
