@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,14 +34,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = require("@ionic/react");
-var icons_1 = require("ionicons/icons");
-var react_2 = __importDefault(require("react"));
-require("./TableColumnSort.css");
+import { jsx as _jsx } from "react/jsx-runtime";
+import { IonIcon } from '@ionic/react';
+import { caretDownOutline, caretUpOutline } from 'ionicons/icons';
+import './TableColumnSort.css';
 var TableColumnSort = function (_a) {
     var sort = _a.sort, columnName = _a.columnName, callback = _a.callback;
     var changeSort = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -63,8 +58,8 @@ var TableColumnSort = function (_a) {
             return [2 /*return*/];
         });
     }); };
-    return (react_2.default.createElement(react_1.IonIcon, { icon: sort.ascending || sort.orderBy !== columnName ? icons_1.caretUpOutline : icons_1.caretDownOutline, 
+    return (_jsx(IonIcon, { icon: sort.ascending || sort.orderBy !== columnName ? caretUpOutline : caretDownOutline, 
         // onClick={() => {changeSort();}}
-        size: "large", onClick: changeSort, color: columnName === sort.orderBy ? 'dark' : 'medium' }));
+        size: "large", onClick: changeSort, color: columnName === sort.orderBy ? 'dark' : 'medium' }, void 0));
 };
-exports.default = TableColumnSort;
+export default TableColumnSort;

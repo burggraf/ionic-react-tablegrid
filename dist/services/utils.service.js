@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UtilsService = void 0;
 var UtilsService = /** @class */ (function () {
     function UtilsService() {
         var _this = this;
@@ -62,4 +59,4 @@ var UtilsService = /** @class */ (function () {
     }
     return UtilsService;
 }());
-exports.UtilsService = UtilsService;
+export { UtilsService };
