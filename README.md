@@ -59,7 +59,7 @@ takes an array of (string | null)
 - clicking on the sort button for a column the first time changes to the sort item for that column in ascending order, clicking a second time toggles it to descending, and so on
 
 example (allow sorting on the first and third columns only):
-```json
+```js
 ["name", null, "eyes"]
 ```
 in the example above, 
