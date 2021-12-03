@@ -38,7 +38,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { IonIcon } from '@ionic/react';
 import { caretDownOutline, caretUpOutline } from 'ionicons/icons';
 import './TableColumnSort.css';
-var TableColumnSort = function (_a) {
+export var TableColumnSort = function (_a) {
     var sort = _a.sort, columnName = _a.columnName, callback = _a.callback;
     var changeSort = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -62,4 +62,3 @@ var TableColumnSort = function (_a) {
         // onClick={() => {changeSort();}}
         size: "large", onClick: changeSort, color: columnName === sort.orderBy ? 'dark' : 'medium' }, void 0));
 };
-export default TableColumnSort;

@@ -13,7 +13,7 @@ interface ContainerProps {
     callback: Function;
 }
 
-const TableColumnSort: React.FC<ContainerProps> = ({ sort, columnName, callback }) => {
+export const TableColumnSort: React.FC<ContainerProps> = ({ sort, columnName, callback }) => {
     const changeSort = async () => {
         if (columnName !== null) {
             if (sort.orderBy === columnName) {
@@ -36,4 +36,4 @@ const TableColumnSort: React.FC<ContainerProps> = ({ sort, columnName, callback 
       );
     };
 
-export default TableColumnSort;
+// export default TableColumnSort;

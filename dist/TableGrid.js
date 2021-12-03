@@ -11,7 +11,7 @@ var __assign = (this && this.__assign) || function () {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { UtilsService } from './services/utils.service';
-import TableColumnSort from './TableColumnSort';
+import { TableColumnSort } from './TableColumnSort';
 import './TableGrid.css';
 var utilsService = new UtilsService();
 export var TableGrid = function (_a) {

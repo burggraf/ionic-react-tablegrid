@@ -9,5 +9,5 @@ interface ContainerProps {
     columnName: string | null;
     callback: Function;
 }
-declare const TableColumnSort: React.FC<ContainerProps>;
-export default TableColumnSort;
+export declare const TableColumnSort: React.FC<ContainerProps>;
+export {};

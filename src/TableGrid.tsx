@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Sort } from './models/Sort'
 import { UtilsService } from './services/utils.service'
-import TableColumnSort from './TableColumnSort'
+import { TableColumnSort } from './TableColumnSort'
 
 import './TableGrid.css'
 
