@@ -44,7 +44,9 @@ export class UtilsService {
 				} else if (typeof item === 'boolean') {
 					textWidth = this.getTextWidth(item.toString());
 				} else if (typeof item === 'object' && item !== null && typeof item !== 'undefined') {
-					textWidth = this.getTextWidth(JSON.stringify(item));
+					if (!item.TYPE) {
+						textWidth = this.getTextWidth(JSON.stringify(item));
+					}
 				}
 				if (typeof columnWidths[j] !== 'number' || textWidth > columnWidths[j]) {
 					columnWidths[j] = textWidth

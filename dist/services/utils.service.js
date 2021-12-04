@@ -44,7 +44,9 @@ var UtilsService = /** @class */ (function () {
                         textWidth_1 = _this.getTextWidth(item.toString());
                     }
                     else if (typeof item === 'object' && item !== null && typeof item !== 'undefined') {
-                        textWidth_1 = _this.getTextWidth(JSON.stringify(item));
+                        if (!item.TYPE) {
+                            textWidth_1 = _this.getTextWidth(JSON.stringify(item));
+                        }
                     }
                     if (typeof columnWidths[j] !== 'number' || textWidth_1 > columnWidths[j]) {
                         columnWidths[j] = textWidth_1;

@@ -59,7 +59,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 													style={{ width: columnWidths[index] + 'px', ...rowStyle }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
-													<img src={row[key].URL} alt={row[key].ALT || ''} />
+													<img src={row[key].url} alt={row[key].alt || ''} style={...row[key].style}/>
 												</td>
 											)
 										case 'LINK':
