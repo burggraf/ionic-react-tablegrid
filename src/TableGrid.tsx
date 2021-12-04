@@ -51,6 +51,46 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 											{row[key]}
 										</td>
 									)
+								} else if (row[key].TYPE) {
+									switch (row[key].TYPE) {
+										case 'IMAGE':
+											return (
+												<td
+													style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+													className='breakItUp TableGrid-row'
+													key={utilsService.randomKey()}>
+													<img src={row[key].URL} alt={row[key].ALT || ''} />
+												</td>
+											)
+										case 'LINK':
+											return (
+												<td
+													style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+													className='breakItUp TableGrid-row'
+													key={utilsService.randomKey()}>
+													<a href={row[key].URL} target='_blank'>{row[key].TEXT}</a>
+												</td>
+											)
+										case 'LINK_BUTTON':
+											return (
+												<td
+													style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+													className='breakItUp TableGrid-row'
+													key={utilsService.randomKey()}>
+													<a href={row[key].URL} target='_blank' className='TableGrid-linkButton'>{row[key].TEXT}</a>
+												</td>
+											)
+										default:
+											return (
+												<td
+													style={{ width: columnWidths[index] + 'px' }}
+													className='breakItUp TableGrid-row'
+													key={utilsService.randomKey()}>
+													{JSON.stringify(row[key])}
+												</td>
+											)													
+									}
+
 								} else {
 									return (
 										<td

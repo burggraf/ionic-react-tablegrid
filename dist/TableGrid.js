@@ -25,6 +25,18 @@ export var TableGrid = function (_a) {
                             if (typeof row[key] !== 'object') {
                                 return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle), className: 'breakItUp TableGrid-row' }, { children: row[key] }), utilsService.randomKey()));
                             }
+                            else if (row[key].TYPE) {
+                                switch (row[key].TYPE) {
+                                    case 'IMAGE':
+                                        return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].URL, alt: row[key].ALT || '' }, void 0) }), utilsService.randomKey()));
+                                    case 'LINK':
+                                        return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle), className: 'breakItUp TableGrid-row' }, { children: _jsx("a", __assign({ href: row[key].URL, target: '_blank' }, { children: row[key].TEXT }), void 0) }), utilsService.randomKey()));
+                                    case 'LINK_BUTTON':
+                                        return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle), className: 'breakItUp TableGrid-row' }, { children: _jsx("a", __assign({ href: row[key].URL, target: '_blank', className: 'TableGrid-linkButton' }, { children: row[key].TEXT }), void 0) }), utilsService.randomKey()));
+                                    default:
+                                        return (_jsx("td", __assign({ style: { width: columnWidths[index] + 'px' }, className: 'breakItUp TableGrid-row' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
+                                }
+                            }
                             else {
                                 return (_jsx("td", __assign({ style: { width: columnWidths[index] + 'px' }, className: 'breakItUp TableGrid-row' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
                             }
