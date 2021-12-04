@@ -56,10 +56,10 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 										case 'IMAGE':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+													style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
-													<img src={row[key].url} alt={row[key].alt || ''} style={...row[key].style}/>
+													<img src={row[key].url} alt={row[key].alt || ''} style={...row[key].itemStyle}/>
 												</td>
 											)
 										case 'LINK':
