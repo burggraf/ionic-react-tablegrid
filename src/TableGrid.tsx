@@ -45,7 +45,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 								if (typeof row[key] !== 'object') {
 									return (
 										<td
-											style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+											style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle }}
 											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{row[key]}
@@ -83,7 +83,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 										default:
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px' }}
+													style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle } }
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													{JSON.stringify(row[key])}
@@ -94,7 +94,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 								} else {
 									return (
 										<td
-											style={{ width: columnWidths[index] + 'px' }}
+											style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle }}
 											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{JSON.stringify(row[key])}

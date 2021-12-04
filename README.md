@@ -107,6 +107,13 @@ const rows = [
 		{name: 'Juan', age: 25, eyes: 'green'},
 		{name: 'Jenny', age: 26, eyes: 'brown'}
 	  ]
+const rowsWithThumbNail = [
+    		{name: 'John', age: 20, eyes: 'brown',
+                thumbnail: { "TYPE": "IMAGE", "url": "https://image.url", 
+                            "cellStyle":{"textAlign": "center"}, 
+                            "itemStyle": {"height": "50px"}}
+
+]
 const clickHandler = (row: any, index: number) => {
     console.log(`you clicked item #${index}`, row)
 }

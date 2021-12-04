@@ -23,7 +23,7 @@ export var TableGrid = function (_a) {
                     rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () { rowClick ? rowClick(row, index) : {}; } }, { children: keys.map(function (key, index) {
                             // if (!Array.isArray(row[key])) {
                             if (typeof row[key] !== 'object') {
-                                return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle), className: 'breakItUp TableGrid-row' }, { children: row[key] }), utilsService.randomKey()));
+                                return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle), row[key].cellStyle), className: 'breakItUp TableGrid-row' }, { children: row[key] }), utilsService.randomKey()));
                             }
                             else if (row[key].TYPE) {
                                 switch (row[key].TYPE) {
@@ -34,11 +34,11 @@ export var TableGrid = function (_a) {
                                     case 'LINK_BUTTON':
                                         return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle), className: 'breakItUp TableGrid-row' }, { children: _jsx("a", __assign({ href: row[key].URL, target: '_blank', className: 'TableGrid-linkButton' }, { children: row[key].TEXT }), void 0) }), utilsService.randomKey()));
                                     default:
-                                        return (_jsx("td", __assign({ style: { width: columnWidths[index] + 'px' }, className: 'breakItUp TableGrid-row' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
+                                        return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle), row[key].cellStyle), className: 'breakItUp TableGrid-row' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
                                 }
                             }
                             else {
-                                return (_jsx("td", __assign({ style: { width: columnWidths[index] + 'px' }, className: 'breakItUp TableGrid-row' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
+                                return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle), row[key].cellStyle), className: 'breakItUp TableGrid-row' }, { children: JSON.stringify(row[key]) }), utilsService.randomKey()));
                             }
                         }) }), utilsService.randomKey())); })] }, void 0) }), utilsService.randomKey()) }), void 0));
 };
