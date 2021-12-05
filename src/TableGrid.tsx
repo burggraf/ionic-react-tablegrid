@@ -45,7 +45,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 								if (typeof row[key] !== 'object') {
 									return (
 										<td
-											style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle }}
+											style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{row[key]}
@@ -56,7 +56,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 										case 'IMAGE':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle }}
+													style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<img src={row[key].url} alt={row[key].alt || ''} style={...row[key].itemStyle}/>
@@ -65,7 +65,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 										case 'LINK':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+													style={{ width: columnWidths[index] + 'px', ...rowStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<a href={row[key].URL} target='_blank'>{row[key].TEXT}</a>
@@ -74,7 +74,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 										case 'LINK_BUTTON':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle }}
+													style={{ width: columnWidths[index] + 'px', ...rowStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<a href={row[key].URL} target='_blank' className='TableGrid-linkButton'>{row[key].TEXT}</a>
@@ -83,7 +83,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 										default:
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle } }
+													style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} } }
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													{JSON.stringify(row[key])}
@@ -94,7 +94,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 								} else {
 									return (
 										<td
-											style={{ width: columnWidths[index] + 'px', ...rowStyle, ...row[key].cellStyle }}
+											style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{JSON.stringify(row[key])}
