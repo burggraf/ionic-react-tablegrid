@@ -51,7 +51,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 											{row[key]}
 										</td>
 									)
-								} else if (row[key].TYPE) {
+								} else if (row[key] !== null && typeof row[key] === 'object' && row[key].TYPE) {
 									switch (row[key].TYPE) {
 										case 'IMAGE':
 											return (

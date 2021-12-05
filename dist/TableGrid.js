@@ -25,7 +25,7 @@ export var TableGrid = function (_a) {
                             if (typeof row[key] !== 'object') {
                                 return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle), row[key].cellStyle), className: 'breakItUp TableGrid-row' }, { children: row[key] }), utilsService.randomKey()));
                             }
-                            else if (row[key].TYPE) {
+                            else if (row[key] !== null && typeof row[key] === 'object' && row[key].TYPE) {
                                 switch (row[key].TYPE) {
                                     case 'IMAGE':
                                         return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle), row[key].cellStyle), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
