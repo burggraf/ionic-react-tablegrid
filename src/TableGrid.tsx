@@ -20,7 +20,6 @@ interface ContainerProps {
 const utilsService = new UtilsService()
 
 export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle }) => {
-	console.log('headers', headers);
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows)
 	return (
@@ -34,10 +33,10 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 								className='breakItUp TableGrid-header'
 								key={utilsService.randomKey()}>
 								{rows[0][keyname].TYPE === 'IMAGE' && 
-									('')
+									(headers ? headers[index] || '' : '')
 								}
 								{rows[0][keyname].TYPE !== 'IMAGE' && 
-									keyname
+									(headers ? headers[index] || '' : keyname)
 								}
 								{/* { (typeof rows[0][keyname] === 'object' && rows[0][keyname].TYPE === 'IMAGE') ? '' : keyname } */}
 								{sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&  						
