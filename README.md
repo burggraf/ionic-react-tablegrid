@@ -8,6 +8,7 @@ quick example:
     rowClick={clickHandler} /* (row, index) => { console.log(row, index) } */
     sort={{"name", true}} /* currently data is sorted on name, ascending */
     changeSortCallback={changeSort} /* (sort: any) => { console.log(sort) } */
+    headers={['Name','Age','Eye Color']} /* optional column headers */
     sortableColumns={['name','age','eyes']} /* pass this string when the sort icon is clicked */
     headerStyle={{backgroundColor: 'gray'}} /* optional styles for header row */
     rowStyle={{backgroundColor: 'white'}} /* optional styles for detail rows */
@@ -17,6 +18,7 @@ quick example:
 - automatically set the width of each column based on the content it contains (including the content from all detail rows)
 - function to execute on row click
 - adjustable header and row styles
+- optional headers array (if headers need to be different from the field names)
 - sortable columns with icons for "sort ascending", "sort descending"
 
 ## Installation
@@ -31,6 +33,13 @@ example:
 ```
 
 The keys should be consistent among all rows, (like a database or spreadsheet).
+### headers (optional)
+takes an array of strings to be used as the column headers
+
+example:
+```json
+["Name","Age","Eye Color"]
+```
 ### rowClick (optional)
 takes a function that receives two parameters: the row that was clicked (object), and the row's index (number)
 
@@ -123,6 +132,7 @@ const changeSort = (sort: any) => {
 }
 return (
     <TableGrid rows={rows} 
+        headers={['Name','Age','Eye Color']}
         rowClick={clickHandler} 
         sort={{"name", true}} 
         changeSortCallback={changeSort} 

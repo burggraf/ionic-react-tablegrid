@@ -21,7 +21,7 @@ const utilsService = new UtilsService()
 
 export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle }) => {
 	const keys = Object.keys(rows[0] || [])
-	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows)
+	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
 	return (
 		<div style={{ height: '100%', overflow: 'scroll' }}>
 			<table style={{ width: gridWidth + 'px' }} key={utilsService.randomKey()}>

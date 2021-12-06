@@ -25,12 +25,17 @@ export class UtilsService {
 		}
 	  }
 	
-	public getGridWidths = (obj: any) => {
+	public getGridWidths = (obj: any, headers?: any[]) => {
 		const columnWidths: number[]= [];
 		const keys = Object.keys(obj[0] || [])
 		let gridWidth = 0;
 		for (let j = 0; j < keys.length; j++) {
-			const textWidth = this.getTextWidth(keys[j]);
+			let textWidth = 0;
+			if (headers && headers[j]) {
+				textWidth = this.getTextWidth(headers[j]);
+			} else {
+				textWidth = this.getTextWidth(keys[j]);
+			}
 			if (typeof columnWidths[j] !== 'number' || textWidth > columnWidths[j]) {
 				columnWidths[j] = textWidth + 40; // 35;
 			}

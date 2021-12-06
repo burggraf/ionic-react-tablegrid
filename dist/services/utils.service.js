@@ -22,12 +22,18 @@ var UtilsService = /** @class */ (function () {
                 return 0;
             }
         };
-        this.getGridWidths = function (obj) {
+        this.getGridWidths = function (obj, headers) {
             var columnWidths = [];
             var keys = Object.keys(obj[0] || []);
             var gridWidth = 0;
             for (var j = 0; j < keys.length; j++) {
-                var textWidth = _this.getTextWidth(keys[j]);
+                var textWidth = 0;
+                if (headers && headers[j]) {
+                    textWidth = _this.getTextWidth(headers[j]);
+                }
+                else {
+                    textWidth = _this.getTextWidth(keys[j]);
+                }
                 if (typeof columnWidths[j] !== 'number' || textWidth > columnWidths[j]) {
                     columnWidths[j] = textWidth + 40; // 35;
                 }

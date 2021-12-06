@@ -3,7 +3,7 @@ export declare class UtilsService {
     uuidv4: () => string;
     randomKey: () => string;
     getTextWidth: (text: string, font?: string | undefined) => number;
-    getGridWidths: (obj: any) => {
+    getGridWidths: (obj: any, headers?: any[] | undefined) => {
         gridWidth: number;
         columnWidths: number[];
     };
