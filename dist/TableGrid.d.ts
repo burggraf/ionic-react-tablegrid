@@ -3,6 +3,7 @@ import { Sort } from './models/Sort';
 import './TableGrid.css';
 interface ContainerProps {
     rows: any[];
+    headers?: any[];
     rowClick?: Function;
     sort?: Sort;
     changeSortCallback?: Function;

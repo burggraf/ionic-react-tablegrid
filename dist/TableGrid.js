@@ -15,10 +15,13 @@ import { TableColumnSort } from './TableColumnSort';
 import './TableGrid.css';
 var utilsService = new UtilsService();
 export var TableGrid = function (_a) {
-    var rows = _a.rows, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle;
+    var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle;
+    console.log('headers', headers);
     var keys = Object.keys(rows[0] || []);
     var _b = utilsService.getGridWidths(rows), gridWidth = _b.gridWidth, columnWidths = _b.columnWidths;
-    return (_jsx("div", __assign({ style: { height: '100%', overflow: 'scroll' } }, { children: _jsx("table", __assign({ style: { width: gridWidth + 'px' } }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) { return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom', width: columnWidths[index] + 'px' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [keyname, sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
+    return (_jsx("div", __assign({ style: { height: '100%', overflow: 'scroll' } }, { children: _jsx("table", __assign({ style: { width: gridWidth + 'px' } }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) { return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom', width: columnWidths[index] + 'px' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [rows[0][keyname].TYPE === 'IMAGE' &&
+                                    (''), rows[0][keyname].TYPE !== 'IMAGE' &&
+                                    keyname, sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
                                     _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey())); }) }, utilsService.randomKey()),
                     rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () { rowClick ? rowClick(row, index) : {}; } }, { children: keys.map(function (key, index) {
                             var _a, _b, _c, _d;

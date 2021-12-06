@@ -8,6 +8,7 @@ import './TableGrid.css'
 
 interface ContainerProps {
 	rows: any[];
+	headers?: any[];
     rowClick?: Function;
 	sort?: Sort;
 	changeSortCallback?: Function;
@@ -18,7 +19,8 @@ interface ContainerProps {
 
 const utilsService = new UtilsService()
 
-export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle }) => {
+export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle }) => {
+	console.log('headers', headers);
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows)
 	return (
@@ -31,7 +33,13 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, rowClick, sort, chan
 								style={{ verticalAlign: 'bottom', width: columnWidths[index] + 'px', ...headerStyle }}
 								className='breakItUp TableGrid-header'
 								key={utilsService.randomKey()}>
-								{keyname}
+								{rows[0][keyname].TYPE === 'IMAGE' && 
+									('')
+								}
+								{rows[0][keyname].TYPE !== 'IMAGE' && 
+									keyname
+								}
+								{/* { (typeof rows[0][keyname] === 'object' && rows[0][keyname].TYPE === 'IMAGE') ? '' : keyname } */}
 								{sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&  						
 									<TableColumnSort sort={sort} columnName={sortableColumns[index]} callback={changeSortCallback}/>
 								}
