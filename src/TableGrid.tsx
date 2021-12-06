@@ -23,7 +23,10 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
 	return (
-		<div style={{ height: '100%', overflow: 'scroll' }}>
+		// <div style={{ height: '100%', overflow: 'scroll' }}>
+		<div className="scroll-y">
+		<div className="scroll-x">
+			<div className="content-container" style={{ width: (gridWidth + 40) + 'px' }}>			
 			<table style={{ width: gridWidth + 'px' }} key={utilsService.randomKey()}>
 				<tbody>
 					<tr key={utilsService.randomKey()}>
@@ -113,6 +116,8 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 					))}
 				</tbody>
 			</table>
+		</div>
+		</div>
 		</div>
 	)
 }
