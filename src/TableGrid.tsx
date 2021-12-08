@@ -35,10 +35,10 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 								style={{ verticalAlign: 'bottom', width: columnWidths[index] + 'px', ...headerStyle }}
 								className='breakItUp TableGrid-header'
 								key={utilsService.randomKey()}>
-								{rows[0][keyname].TYPE === 'IMAGE' && 
+								{rows[0][keyname]?.TYPE === 'IMAGE' && 
 									(headers ? headers[index] || '' : '')
 								}
-								{rows[0][keyname].TYPE !== 'IMAGE' && 
+								{rows[0][keyname]?.TYPE !== 'IMAGE' && 
 									(headers ? headers[index] || '' : keyname)
 								}
 								{/* { (typeof rows[0][keyname] === 'object' && rows[0][keyname].TYPE === 'IMAGE') ? '' : keyname } */}
@@ -61,8 +61,8 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 											{row[key]}
 										</td>
 									)
-								} else if (row[key] !== null && typeof row[key] === 'object' && row[key].TYPE) {
-									switch (row[key].TYPE) {
+								} else if (row[key] !== null && typeof row[key] === 'object' && row[key]?.TYPE) {
+									switch (row[key]?.TYPE) {
 										case 'IMAGE':
 											return (
 												<td
