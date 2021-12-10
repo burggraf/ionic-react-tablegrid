@@ -15,11 +15,11 @@ import { UtilsService } from './services/utils.service';
 import { TableColumnSort } from './TableColumnSort';
 import './TableGrid.css';
 var utilsService = new UtilsService();
+var checksObj = {};
 export var TableGrid = function (_a) {
     var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle, changeCheckboxesCallback = _a.changeCheckboxesCallback;
     var keys = Object.keys(rows[0] || []);
     var _b = utilsService.getGridWidths(rows, headers), gridWidth = _b.gridWidth, columnWidths = _b.columnWidths;
-    console.log('columnWidths', columnWidths);
     var checkedKeys = [];
     return (
     // <div style={{ height: '100%', overflow: 'scroll' }}>
@@ -32,7 +32,10 @@ export var TableGrid = function (_a) {
                                             sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
                                                 _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey()));
                                 }) }, utilsService.randomKey()),
-                            rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () { rowClick ? rowClick(row, index) : {}; } }, { children: keys.map(function (key, index) {
+                            rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
+                                    rowClick ? rowClick(row, index) : {};
+                                    console.log('checksObj', checksObj);
+                                } }, { children: keys.map(function (key, index) {
                                     var _a, _b, _c, _d, _e, _f;
                                     // if (!Array.isArray(row[key])) {
                                     if (typeof row[key] !== 'object') {
@@ -43,12 +46,14 @@ export var TableGrid = function (_a) {
                                             case 'IMAGE':
                                                 return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle || {}), ((_d = row[key]) === null || _d === void 0 ? void 0 : _d.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
                                             case 'CHECKBOX':
-                                                return (_jsx("td", __assign({ style: __assign({ textAlign: 'center', width: columnWidths[index] + 'px' }, rowStyle || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: row[key].value, onIonChange: function (e) {
+                                                return (_jsx("td", __assign({ style: __assign({ textAlign: 'center', width: columnWidths[index] + 'px' }, rowStyle || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: checksObj[row[key].id], onIonChange: function (e) {
                                                             if (e.detail.checked) {
                                                                 checkedKeys.push(row[key].id);
+                                                                checksObj[row[key].id] = true;
                                                             }
                                                             else {
                                                                 checkedKeys = checkedKeys.filter(function (ck) { return ck !== row[key].id; });
+                                                                checksObj[row[key].id] = false;
                                                             }
                                                             if (typeof changeCheckboxesCallback === 'function') {
                                                                 changeCheckboxesCallback(checkedKeys);

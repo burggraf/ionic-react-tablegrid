@@ -19,11 +19,11 @@ interface ContainerProps {
 }
 
 const utilsService = new UtilsService()
+const checksObj: any = {};
 
 export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback }) => {
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
-	console.log('columnWidths', columnWidths);
 	let checkedKeys: string[] = [];
 	return (
 		// <div style={{ height: '100%', overflow: 'scroll' }}>
@@ -52,7 +52,11 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 						))}
 					</tr>
 					{rows.map((row, index) => (
-						<tr key={utilsService.randomKey()} onClick={() => {rowClick ? rowClick(row, index) : {} }}>
+						<tr key={utilsService.randomKey()} 
+							onClick={() => {
+								rowClick ? rowClick(row, index) : {};
+								console.log('checksObj', checksObj);
+							}}>
 							{keys.map((key, index) => {
 								// if (!Array.isArray(row[key])) {
 								if (typeof row[key] !== 'object') {
@@ -84,12 +88,14 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 													key={utilsService.randomKey()}>
 													<IonCheckbox 
 														mode="ios" 
-														checked={row[key].value} 
+														checked={checksObj[row[key].id]}
 														onIonChange={(e) => {
 															if(e.detail.checked) {
 																checkedKeys.push(row[key].id);
+																checksObj[row[key].id] = true;
 															} else {
 																checkedKeys = checkedKeys.filter(ck => ck !== row[key].id);
+																checksObj[row[key].id] = false;
 															}
 															if (typeof changeCheckboxesCallback === 'function') {
 																changeCheckboxesCallback(checkedKeys);
