@@ -10,14 +10,17 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { IonCheckbox } from '@ionic/react';
 import { UtilsService } from './services/utils.service';
 import { TableColumnSort } from './TableColumnSort';
 import './TableGrid.css';
 var utilsService = new UtilsService();
 export var TableGrid = function (_a) {
-    var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle;
+    var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle, changeCheckboxesCallback = _a.changeCheckboxesCallback;
     var keys = Object.keys(rows[0] || []);
     var _b = utilsService.getGridWidths(rows, headers), gridWidth = _b.gridWidth, columnWidths = _b.columnWidths;
+    console.log('columnWidths', columnWidths);
+    var checkedKeys = [];
     return (
     // <div style={{ height: '100%', overflow: 'scroll' }}>
     _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: { width: (gridWidth + 40) + 'px' } }, { children: _jsx("table", __assign({ style: { width: gridWidth + 'px' } }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) {
@@ -39,6 +42,20 @@ export var TableGrid = function (_a) {
                                         switch ((_c = row[key]) === null || _c === void 0 ? void 0 : _c.TYPE) {
                                             case 'IMAGE':
                                                 return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle || {}), ((_d = row[key]) === null || _d === void 0 ? void 0 : _d.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
+                                            case 'CHECKBOX':
+                                                return (_jsx("td", __assign({ style: __assign({ textAlign: 'center', width: columnWidths[index] + 'px' }, rowStyle || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: row[key].value, onIonChange: function (e) {
+                                                            console.log('checkbox key was tapped', row[key].id);
+                                                            if (e.detail.checked) {
+                                                                checkedKeys.push(row[key].id);
+                                                            }
+                                                            else {
+                                                                checkedKeys = checkedKeys.filter(function (ck) { return ck !== row[key].id; });
+                                                            }
+                                                            if (typeof changeCheckboxesCallback === 'function') {
+                                                                changeCheckboxesCallback(checkedKeys);
+                                                            }
+                                                            // console.log('checkedKeys', checkedKeys);
+                                                        } }, void 0) }), utilsService.randomKey()));
                                             case 'LINK':
                                                 return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("a", __assign({ href: row[key].URL, target: '_blank' }, { children: row[key].TEXT }), void 0) }), utilsService.randomKey()));
                                             case 'LINK_BUTTON':

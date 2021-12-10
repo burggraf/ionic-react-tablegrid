@@ -1,4 +1,4 @@
-import React from 'react';
+/// <reference types="react" />
 import { Sort } from './models/Sort';
 import './TableGrid.css';
 interface ContainerProps {
@@ -10,6 +10,7 @@ interface ContainerProps {
     sortableColumns?: (string | null)[];
     headerStyle?: object;
     rowStyle?: object;
+    changeCheckboxesCallback?: Function;
 }
 export declare const TableGrid: React.FC<ContainerProps>;
 export {};

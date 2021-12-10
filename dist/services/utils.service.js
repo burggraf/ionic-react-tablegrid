@@ -28,8 +28,12 @@ var UtilsService = /** @class */ (function () {
             var gridWidth = 0;
             for (var j = 0; j < keys.length; j++) {
                 var textWidth = 0;
+                var firstItem = obj[0][keys[j]];
                 if (headers && headers[j]) {
                     textWidth = _this.getTextWidth(headers[j]);
+                }
+                else if (typeof firstItem === 'object' && firstItem.TYPE === 'CHECKBOX') {
+                    textWidth = 20;
                 }
                 else {
                     textWidth = _this.getTextWidth(keys[j]);
@@ -48,6 +52,9 @@ var UtilsService = /** @class */ (function () {
                     }
                     else if (typeof item === 'boolean') {
                         textWidth_1 = _this.getTextWidth(item.toString());
+                    }
+                    else if (typeof item === 'object' && item.TYPE === 'CHECKBOX') {
+                        textWidth_1 = 20;
                     }
                     else if (typeof item === 'object' && item !== null && typeof item !== 'undefined') {
                         if (!item.TYPE) {

@@ -31,8 +31,11 @@ export class UtilsService {
 		let gridWidth = 0;
 		for (let j = 0; j < keys.length; j++) {
 			let textWidth = 0;
+			const firstItem = obj[0][keys[j]];
 			if (headers && headers[j]) {
 				textWidth = this.getTextWidth(headers[j]);
+			} else if (typeof firstItem === 'object' && firstItem.TYPE === 'CHECKBOX') {
+				textWidth = 20;
 			} else {
 				textWidth = this.getTextWidth(keys[j]);
 			}
@@ -48,6 +51,8 @@ export class UtilsService {
 					textWidth = this.getTextWidth(item.toString());
 				} else if (typeof item === 'boolean') {
 					textWidth = this.getTextWidth(item.toString());
+				} else if (typeof item === 'object' && item.TYPE === 'CHECKBOX') {
+					textWidth = 20;
 				} else if (typeof item === 'object' && item !== null && typeof item !== 'undefined') {
 					if (!item.TYPE) {
 						textWidth = this.getTextWidth(JSON.stringify(item));

@@ -88,6 +88,17 @@ in the example above,
 - clicking the sort icon for column 1 will set the sort to `{ "name", true }`
 - clicking the sort icon for column 1 again will set the sort to `{ "name", false }`
 
+### changeCheckboxesCallback (optional)
+takes a callback function that receives an array of `ids` (strings) for the checkboxes that are currently checked
+
+example:
+```js
+const checkBoxesCallback = (checkboxes: string[]) => {
+  console.log('checked boxes', checkboxes);
+  // ['key1','key2','keyN']
+}
+```
+
 ### headerStyle (optional)
 additional object of styles for the header row
 
@@ -123,12 +134,25 @@ const rowsWithThumbNail = [
                             "itemStyle": {"height": "50px"}}
 
 ]
+const rowsWithCheckbox = [
+    {name: 'John', 
+    age: 20, 
+    eyes: 'brown',
+    checkbox: {
+        "TYPE": "CHECKBOX", 
+        "value": false, 
+        "id": "John"}
+]
 const clickHandler = (row: any, index: number) => {
     console.log(`you clicked item #${index}`, row)
 }
 const changeSort = (sort: any) => {
     // sort: Sort returns { orderBy: string, ascending: boolean }
     console.log(`new sort should be on ${sort.orderBy} ${sort.ascending ? 'ASC' : 'DESC'}`)
+}
+const checkBoxesCallback = (checkboxes: string[]) => {
+  console.log('checked boxes', checkboxes);
+  // ['key1','key2','keyN']
 }
 return (
     <TableGrid rows={rows} 

@@ -1,4 +1,4 @@
-import React from 'react'
+import { IonCheckbox } from '@ionic/react'
 
 import { Sort } from './models/Sort'
 import { UtilsService } from './services/utils.service'
@@ -15,13 +15,16 @@ interface ContainerProps {
 	sortableColumns?: (string|null)[];
 	headerStyle?: object;
 	rowStyle?: object;
+	changeCheckboxesCallback?: Function;
 }
 
 const utilsService = new UtilsService()
 
-export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle }) => {
+export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback }) => {
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
+	console.log('columnWidths', columnWidths);
+	let checkedKeys: string[] = [];
 	return (
 		// <div style={{ height: '100%', overflow: 'scroll' }}>
 		<div className="scroll-y">
@@ -70,6 +73,28 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<img src={row[key].url} alt={row[key].alt || ''} style={...row[key].itemStyle}/>
+												</td>
+											)
+										case 'CHECKBOX':
+											return (
+												<td 
+													style={{ textAlign: 'center', width: columnWidths[index] + 'px', ...rowStyle || {} }}
+													className='breakItUp TableGrid-row'
+													onClick={(e) => {e.stopPropagation()}}
+													key={utilsService.randomKey()}>
+													<IonCheckbox 
+														mode="ios" 
+														checked={row[key].value} 
+														onIonChange={(e) => {
+															if(e.detail.checked) {
+																checkedKeys.push(row[key].id);
+															} else {
+																checkedKeys = checkedKeys.filter(ck => ck !== row[key].id);
+															}
+															if (typeof changeCheckboxesCallback === 'function') {
+																changeCheckboxesCallback(checkedKeys);
+															}
+														}} />
 												</td>
 											)
 										case 'LINK':
