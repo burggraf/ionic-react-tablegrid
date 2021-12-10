@@ -44,7 +44,6 @@ export var TableGrid = function (_a) {
                                                 return (_jsx("td", __assign({ style: __assign(__assign({ width: columnWidths[index] + 'px' }, rowStyle || {}), ((_d = row[key]) === null || _d === void 0 ? void 0 : _d.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
                                             case 'CHECKBOX':
                                                 return (_jsx("td", __assign({ style: __assign({ textAlign: 'center', width: columnWidths[index] + 'px' }, rowStyle || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: row[key].value, onIonChange: function (e) {
-                                                            console.log('checkbox key was tapped', row[key].id);
                                                             if (e.detail.checked) {
                                                                 checkedKeys.push(row[key].id);
                                                             }
@@ -54,7 +53,6 @@ export var TableGrid = function (_a) {
                                                             if (typeof changeCheckboxesCallback === 'function') {
                                                                 changeCheckboxesCallback(checkedKeys);
                                                             }
-                                                            // console.log('checkedKeys', checkedKeys);
                                                         } }, void 0) }), utilsService.randomKey()));
                                             case 'LINK':
                                                 return (_jsx("td", __assign({ style: __assign({ width: columnWidths[index] + 'px' }, rowStyle || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("a", __assign({ href: row[key].URL, target: '_blank' }, { children: row[key].TEXT }), void 0) }), utilsService.randomKey()));
