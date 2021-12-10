@@ -88,7 +88,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 													key={utilsService.randomKey()}>
 													<IonCheckbox 
 														mode="ios" 
-														checked={checksObj[row[key].id]}
+														checked={row[key].value || row[key].checked}
 														onIonChange={(e) => {
 															if(e.detail.checked) {
 																checkedKeys.push(row[key].id);
