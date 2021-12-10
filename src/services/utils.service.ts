@@ -34,7 +34,7 @@ export class UtilsService {
 			const firstItem = obj[0][keys[j]];
 			if (headers && headers[j]) {
 				textWidth = this.getTextWidth(headers[j]);
-			} else if (typeof firstItem === 'object' && firstItem.TYPE === 'CHECKBOX') {
+			} else if (typeof firstItem === 'object' && firstItem?.TYPE && firstItem?.TYPE === 'CHECKBOX') {
 				textWidth = 20;
 			} else {
 				textWidth = this.getTextWidth(keys[j]);
@@ -51,7 +51,7 @@ export class UtilsService {
 					textWidth = this.getTextWidth(item.toString());
 				} else if (typeof item === 'boolean') {
 					textWidth = this.getTextWidth(item.toString());
-				} else if (typeof item === 'object' && item.TYPE && item.TYPE === 'CHECKBOX') {
+				} else if (typeof item === 'object' && item?.TYPE && item?.TYPE === 'CHECKBOX') {
 					textWidth = 20;
 				} else if (typeof item === 'object' && item !== null && typeof item !== 'undefined') {
 					if (!item.TYPE) {

@@ -32,7 +32,7 @@ var UtilsService = /** @class */ (function () {
                 if (headers && headers[j]) {
                     textWidth = _this.getTextWidth(headers[j]);
                 }
-                else if (typeof firstItem === 'object' && firstItem.TYPE === 'CHECKBOX') {
+                else if (typeof firstItem === 'object' && (firstItem === null || firstItem === void 0 ? void 0 : firstItem.TYPE) && (firstItem === null || firstItem === void 0 ? void 0 : firstItem.TYPE) === 'CHECKBOX') {
                     textWidth = 20;
                 }
                 else {
@@ -53,7 +53,7 @@ var UtilsService = /** @class */ (function () {
                     else if (typeof item === 'boolean') {
                         textWidth_1 = _this.getTextWidth(item.toString());
                     }
-                    else if (typeof item === 'object' && item.TYPE && item.TYPE === 'CHECKBOX') {
+                    else if (typeof item === 'object' && (item === null || item === void 0 ? void 0 : item.TYPE) && (item === null || item === void 0 ? void 0 : item.TYPE) === 'CHECKBOX') {
                         textWidth_1 = 20;
                     }
                     else if (typeof item === 'object' && item !== null && typeof item !== 'undefined') {
