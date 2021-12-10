@@ -16,11 +16,11 @@ import { TableColumnSort } from './TableColumnSort';
 import './TableGrid.css';
 var utilsService = new UtilsService();
 var checksObj = {};
+var checkedKeys = [];
 export var TableGrid = function (_a) {
     var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle, changeCheckboxesCallback = _a.changeCheckboxesCallback;
     var keys = Object.keys(rows[0] || []);
     var _b = utilsService.getGridWidths(rows, headers), gridWidth = _b.gridWidth, columnWidths = _b.columnWidths;
-    var checkedKeys = [];
     return (
     // <div style={{ height: '100%', overflow: 'scroll' }}>
     _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: { width: (gridWidth + 40) + 'px' } }, { children: _jsx("table", __assign({ style: { width: gridWidth + 'px' } }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) {

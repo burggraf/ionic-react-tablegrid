@@ -20,11 +20,11 @@ interface ContainerProps {
 
 const utilsService = new UtilsService()
 const checksObj: any = {};
+let checkedKeys: string[] = [];
 
 export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback }) => {
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
-	let checkedKeys: string[] = [];
 	return (
 		// <div style={{ height: '100%', overflow: 'scroll' }}>
 		<div className="scroll-y">
