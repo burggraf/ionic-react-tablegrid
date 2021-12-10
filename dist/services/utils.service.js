@@ -53,7 +53,7 @@ var UtilsService = /** @class */ (function () {
                     else if (typeof item === 'boolean') {
                         textWidth_1 = _this.getTextWidth(item.toString());
                     }
-                    else if (typeof item === 'object' && item.TYPE === 'CHECKBOX') {
+                    else if (typeof item === 'object' && item.TYPE && item.TYPE === 'CHECKBOX') {
                         textWidth_1 = 20;
                     }
                     else if (typeof item === 'object' && item !== null && typeof item !== 'undefined') {
