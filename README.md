@@ -176,6 +176,8 @@ const checkBoxesCallback = (checkboxes: string[]) => {
   // returns: ['key1','key2','keyN']
 }
 ```
+### CUSTOM object
+...tbd...
 
 ## Example
 ```jsx
