@@ -23,7 +23,7 @@ quick example:
 
 ## Installation
 `npm install --save ionic-react-tablegrid`
-## Attributes
+## TableGrid Attributes
 ### rows (required)
 takes an array of objects with key/value pairs
 
@@ -115,6 +115,65 @@ example:
 {"backgroundColor": "white", "color": "black"}
 ```
 
+## Row Attributes
+
+### Simple Object
+you can pass a simple string, numeric, or boolean object like this:
+```js
+const rows = [
+    name: 'Mr Stringman', // string
+    age: 55, // integer
+    score: 10535.553, // float
+    registered: true // boolean
+]
+```
+NOTE: the column width for each column will be set based on the maximum width of the value of the row with the longest entry (up to the max value).
+### IMAGE object
+you can create an image object using `TYPE: "IMAGE"`
+```js
+const rows = [
+    name: 'Bob',
+    avatar: { 
+        "TYPE": "IMAGE", 
+        "url": "https://image.url", // required
+        "cellStyle":{"textAlign": "center"}, // optional
+        "rowStyle": {"height": "50px"} // optional
+]
+```
+You can pass optional objects for `cellStyle` and `rowStyle` for optional styling needs.
+
+### CHECKBOX object
+you can create a checkbox object using `TYPE: "CHECKBOX"`
+```js
+const rows = [
+    name: 'Bob',
+    member: {
+        "TYPE": "CHECKBOX", 
+        "value": false, // "checked" also works here if you prefer
+        "id": "Bob", // this value is passed to the checkBoxesCallback function
+        "cellStyle":{"textAlign": "center"}, // optional
+        "rowStyle": {"height": "50px"} // optional
+        }
+]
+```
+You can pass optional objects for `cellStyle` and `rowStyle` for optional styling needs.
+
+When using a `CHECKBOX` object you need to pass a callback function to your `TableGrid` called `checkBoxesCallback` which will contain an array of `id`'s that are currently checked.
+
+`TableGrid`:
+```jsx
+<TableGrid rows={rows} 
+    checkBoxesCallback={checkBoxesCallback}
+/>
+```
+Callback Function:
+```js
+const checkBoxesCallback = (checkboxes: string[]) => {
+  console.log('checked boxes', checkboxes);
+  // returns: ['key1','key2','keyN']
+}
+```
+
 ## Example
 ```jsx
 import { TableGrid } from 'ionic-react-tablegrid'
@@ -131,7 +190,7 @@ const rowsWithThumbNail = [
     		{name: 'John', age: 20, eyes: 'brown',
                 thumbnail: { "TYPE": "IMAGE", "url": "https://image.url", 
                             "cellStyle":{"textAlign": "center"}, 
-                            "itemStyle": {"height": "50px"}}
+                            "rowStyle": {"height": "50px"}}
 
 ]
 const rowsWithCheckbox = [
@@ -160,6 +219,7 @@ return (
         rowClick={clickHandler} 
         sort={{"name", true}} 
         changeSortCallback={changeSort} 
+        checkBoxesCallback={checkBoxesCallback}
         sortableColumns={['name','age','eyes']}
         headerStyle={{backgroundColor: 'gray'}}
         rowStyle={{backgroundColor: 'white'}}

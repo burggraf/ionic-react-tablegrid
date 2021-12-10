@@ -82,7 +82,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										case 'CHECKBOX':
 											return (
 												<td 
-													style={{ textAlign: 'center', width: columnWidths[index] + 'px', ...rowStyle || {} }}
+													style={{ textAlign: 'center', width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													onClick={(e) => {e.stopPropagation()}}
 													key={utilsService.randomKey()}>
