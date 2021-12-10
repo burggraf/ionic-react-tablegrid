@@ -1,6 +1,16 @@
-export class UtilsService {
+export default class UtilsService {
+    static myInstance:any = null;
+	public maxColumnWidth = 400;
+    static getInstance(maxColumnWidth = 400) {
+        if (this.myInstance == null) {
+          this.myInstance = new this(maxColumnWidth);
+        }
+        return this.myInstance;
+      }
 
-    constructor() {}
+    constructor(maxColumnWidth = 400) {
+		this.maxColumnWidth = maxColumnWidth;;
+	}
 
     public uuidv4 = () => {
 		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -19,7 +29,7 @@ export class UtilsService {
 		if (context) {
 			context.font = font || getComputedStyle(document.body).font;
 			const calculated = Math.round((context.measureText(text).width * 1.05) + 10); // pad here? 10
-			return Math.min(calculated, 400); 
+			return Math.min(calculated, this.maxColumnWidth); 
 		} else {
 			return 0;
 		}

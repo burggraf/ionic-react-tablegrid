@@ -1,7 +1,7 @@
 import { IonCheckbox } from '@ionic/react'
 
 import { Sort } from './models/Sort'
-import { UtilsService } from './services/utils.service'
+import UtilsService from './services/utils.service'
 import { TableColumnSort } from './TableColumnSort'
 
 import './TableGrid.css'
@@ -16,13 +16,14 @@ interface ContainerProps {
 	headerStyle?: object;
 	rowStyle?: object;
 	changeCheckboxesCallback?: Function;
+	maxColumnWidth?: number;
 }
 
-const utilsService = new UtilsService()
 const checksObj: any = {};
 let checkedKeys: string[] = [];
 
-export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback }) => {
+export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
+	const utilsService = UtilsService.getInstance(maxColumnWidth);
 	const keys = Object.keys(rows[0] || [])
 	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
 	return (
@@ -70,6 +71,15 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 									)
 								} else if (row[key] !== null && typeof row[key] === 'object' && row[key]?.TYPE) {
 									switch (row[key]?.TYPE) {
+										case 'CUSTOM':
+											return (
+												<td
+													style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													className='breakItUp TableGrid-row'
+													key={utilsService.randomKey()}>
+														<div dangerouslySetInnerHTML={{"__html": row[key].html}} />
+												</td>
+											)
 										case 'IMAGE':
 											return (
 												<td

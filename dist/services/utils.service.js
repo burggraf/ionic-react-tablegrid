@@ -1,6 +1,8 @@
 var UtilsService = /** @class */ (function () {
-    function UtilsService() {
+    function UtilsService(maxColumnWidth) {
         var _this = this;
+        if (maxColumnWidth === void 0) { maxColumnWidth = 400; }
+        this.maxColumnWidth = 400;
         this.uuidv4 = function () {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = (Math.random() * 16) | 0, v = c == 'x' ? r : (r & 0x3) | 0x8;
@@ -16,7 +18,7 @@ var UtilsService = /** @class */ (function () {
             if (context) {
                 context.font = font || getComputedStyle(document.body).font;
                 var calculated = Math.round((context.measureText(text).width * 1.05) + 10); // pad here? 10
-                return Math.min(calculated, 400);
+                return Math.min(calculated, _this.maxColumnWidth);
             }
             else {
                 return 0;
@@ -71,7 +73,17 @@ var UtilsService = /** @class */ (function () {
             }
             return { gridWidth: gridWidth, columnWidths: columnWidths };
         };
+        this.maxColumnWidth = maxColumnWidth;
+        ;
     }
+    UtilsService.getInstance = function (maxColumnWidth) {
+        if (maxColumnWidth === void 0) { maxColumnWidth = 400; }
+        if (this.myInstance == null) {
+            this.myInstance = new this(maxColumnWidth);
+        }
+        return this.myInstance;
+    };
+    UtilsService.myInstance = null;
     return UtilsService;
 }());
-export { UtilsService };
+export default UtilsService;

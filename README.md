@@ -12,6 +12,7 @@ quick example:
     sortableColumns={['name','age','eyes']} /* pass this string when the sort icon is clicked */
     headerStyle={{backgroundColor: 'gray'}} /* optional styles for header row */
     rowStyle={{backgroundColor: 'white'}} /* optional styles for detail rows */
+    maxColumnWidth={400} /* optional */
 />
 ```
 ## Features
@@ -114,6 +115,8 @@ example:
 ```json
 {"backgroundColor": "white", "color": "black"}
 ```
+### maxColumnWidth (optional)
+maximum size in pixels for a column
 
 ## Row Attributes
 

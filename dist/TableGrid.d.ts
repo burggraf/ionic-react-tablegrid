@@ -11,6 +11,7 @@ interface ContainerProps {
     headerStyle?: object;
     rowStyle?: object;
     changeCheckboxesCallback?: Function;
+    maxColumnWidth?: number;
 }
 export declare const TableGrid: React.FC<ContainerProps>;
 export {};
