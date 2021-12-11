@@ -6,10 +6,8 @@ quick example:
 ```jsx    
 <TableGrid rows={rows} /* [{name:'Bob',age:22,eyes:'blue'},{name:'Al',age:33,eyes:'brown'}] */
     rowClick={clickHandler} /* (row, index) => { console.log(row, index) } */
-    sort={{"name", true}} /* currently data is sorted on name, ascending */
-    changeSortCallback={changeSort} /* (sort: any) => { console.log(sort) } */
+    sort={{"orderBy": "name", "ascending": true}} /* currently data is sorted on name, ascending */
     headers={['Name','Age','Eye Color']} /* optional column headers */
-    sortableColumns={['name','age','eyes']} /* pass this string when the sort icon is clicked */
     headerStyle={{backgroundColor: 'gray'}} /* optional styles for header row */
     rowStyle={{backgroundColor: 'white'}} /* optional styles for detail rows */
     maxColumnWidth={400} /* optional */
@@ -51,7 +49,7 @@ const clickHandler = (row: any, index: number) => {
 }
 ```
 ### sort (optional)
-takes an object of type Sort with the current sort data
+takes an object of type Sort with the initial sort data
 ```js
 export interface Sort {
     orderBy: string;
@@ -61,33 +59,8 @@ export interface Sort {
 
 example (current data is sort on name, ascending):
 ```json
-{ "name", true }
+{ "orderBy": "name", "ascending": true }
 ```
-
-### changeSortCallback (optional)
-takes a callback function that receives a new "sort" object, which you can use to re-sort your data
-
-example:
-```js
-const changeSort = (sort: any) => {
-    // sort: Sort returns { orderBy: string, ascending: boolean }
-    console.log(`we should now sort our data on ${sort.orderBy} ${sort.ascending ? 'ASC' : 'DESC'}`)
-}
-```
-### sortableColumns (optional)
-takes an array of (string | null)
-- if a column position contains a string, that is passed to the sort object when the sort button in the column header is clicked
-- if a column position is `null` or `undefined`, then no sort button will be displayed for that column header
-- clicking on the sort button for a column the first time changes to the sort item for that column in ascending order, clicking a second time toggles it to descending, and so on
-
-example (allow sorting on the first and third columns only):
-```js
-["name", null, "eyes"]
-```
-in the example above, 
-- sort icons will show up in the headers of columns 1 and 3
-- clicking the sort icon for column 1 will set the sort to `{ "name", true }`
-- clicking the sort icon for column 1 again will set the sort to `{ "name", false }`
 
 ### changeCheckboxesCallback (optional)
 takes a callback function that receives an array of `ids` (strings) for the checkboxes that are currently checked
@@ -191,25 +164,38 @@ const checkBoxesCallback = (checkboxes: string[]) => {
 }
 ```
 ### CUSTOM object
-...tbd...
+Custom objects can have custom formatted HTML and an optional sort object used to sort the table on this column.
+
+Example:
+```js
+[ { Product: "Motorcycle",
+    Price: { "TYPE": "CUSTOM",
+             "html": "USD$14,999.99" + "<br/>" + "What a great price!",
+             "sort": 14999.99 }},
+  { Product: "Car",
+    Price: { "TYPE": "CUSTOM",
+             "html": "USD$24,550.99" + "<br/>" + "Ride in comfort!",
+             "sort": 24550.99 }},
+]
+```
 
 ## Example
 ```jsx
 import { TableGrid } from 'ionic-react-tablegrid'
 const rows = [
-		{name: 'John', age: 20, eyes: 'brown', $id: 1},
-		{name: 'Jane', age: 21, eyes: 'blue', $id: 2},
-		{name: 'Joe', age: 22, eyes: 'green', $id: 3},
-		{name: 'Jack', age: 23, eyes: 'brown', $id: 4},
-		{name: 'Jill', age: 24, eyes: 'blue', $id: 5},
-		{name: 'Juan', age: 25, eyes: 'green', $id: 6},
-		{name: 'Jenny', age: 26, eyes: 'brown', $id: 7}
-	  ]
+    {name: 'John', age: 20, eyes: 'brown', $id: 1},
+    {name: 'Jane', age: 21, eyes: 'blue', $id: 2},
+    {name: 'Joe', age: 22, eyes: 'green', $id: 3},
+    {name: 'Jack', age: 23, eyes: 'brown', $id: 4},
+    {name: 'Jill', age: 24, eyes: 'blue', $id: 5},
+    {name: 'Juan', age: 25, eyes: 'green', $id: 6},
+    {name: 'Jenny', age: 26, eyes: 'brown', $id: 7}
+]
 const rowsWithThumbNail = [
-    		{name: 'John', age: 20, eyes: 'brown',
-                thumbnail: { "TYPE": "IMAGE", "url": "https://image.url", 
-                            "cellStyle":{"textAlign": "center"}, 
-                            "rowStyle": {"height": "50px"}}
+    {name: 'John', age: 20, eyes: 'brown',
+        thumbnail: { "TYPE": "IMAGE", "url": "https://image.url", 
+                    "cellStyle":{"textAlign": "center"}, 
+                    "rowStyle": {"height": "50px"}}
 
 ]
 const rowsWithCheckbox = [
@@ -221,13 +207,19 @@ const rowsWithCheckbox = [
         "value": false, 
         "id": "John"}
 ]
+const rowsWithSorting = [ 
+    { Product: "Motorcycle",
+        Price: { "TYPE": "CUSTOM",
+                "html": "USD$14,999.99" + "<br/>" + "What a great price!",
+                "sort": 14999.99 }},
+    { Product: "Car",
+        Price: { "TYPE": "CUSTOM",
+                "html": "USD$24,550.99" + "<br/>" + "Ride in comfort!",
+                "sort": 24550.99 }},
+]
 const clickHandler = (row: any, index: number) => {
     console.log(`you clicked item #${index}`, row);
     console.log(`the id of this row is ${$id}`);
-}
-const changeSort = (sort: any) => {
-    // sort: Sort returns { orderBy: string, ascending: boolean }
-    console.log(`new sort should be on ${sort.orderBy} ${sort.ascending ? 'ASC' : 'DESC'}`)
 }
 const checkBoxesCallback = (checkboxes: string[]) => {
   console.log('checked boxes', checkboxes);
@@ -238,9 +230,7 @@ return (
         headers={['Name','Age','Eye Color']}
         rowClick={clickHandler} 
         sort={{"name", true}} 
-        changeSortCallback={changeSort} 
         checkBoxesCallback={checkBoxesCallback}
-        sortableColumns={['name','age','eyes']}
         headerStyle={{backgroundColor: 'gray'}}
         rowStyle={{backgroundColor: 'white'}}
     />
