@@ -13,7 +13,7 @@ interface ContainerProps {
     rowClick?: Function;
 	sort?: Sort;
 	// changeSortCallback?: Function;
-	sortableColumns?: (string|null)[];
+	// sortableColumns?: (string|null)[];
 	headerStyle?: object;
 	rowStyle?: object;
 	changeCheckboxesCallback?: Function;
@@ -24,7 +24,7 @@ const checksObj: any = {};
 let checkedKeys: string[] = [];
 let initialized = false;
 
-export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, /*changeSortCallback,*/ sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
+export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, /*changeSortCallback, sortableColumns,*/ headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
 	const utilsService = UtilsService.getInstance(maxColumnWidth);
 	const keys = Object.keys(rows[0] || [])
 	if (rows.length === 0) {
@@ -53,27 +53,14 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 	const changeSortCallbackLocal = (sort: Sort) => {
 		const newRows = [...displayRows];
 		newRows.sort((a: any, b: any) => {
-			const y = a[sort.orderBy];
-			const z = b[sort.orderBy];
-			if (sort.orderBy === '$price') {
-				if (
-					parseInt(y.replace(/,/g, '')) < parseInt(z.replace(/,/g, ''))
-				) {
-					return sort.ascending ? -1 : 1
-				}
-				if (
-					parseInt(y.replace(/,/g, '')) > parseInt(z.replace(/,/g, ''))
-				) {
-					return sort.ascending ? 1 : -1
-				}
-			} else {
-				if (y < z) {
-					return sort.ascending ? -1 : 1
-				}
-				if (y > z) {
-					return sort.ascending ? 1 : -1
-				}
+			const y = a[sort.orderBy].sort;
+			const z = b[sort.orderBy].sort;
+			if (y < z) {
+				return sort.ascending ? -1 : 1
 			}
+			if (y > z) {
+				return sort.ascending ? 1 : -1
+			}			
 			return 0
 		});
 		setDisplayRows(newRows);
@@ -102,8 +89,8 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										{displayRows[0][keyname]?.TYPE !== 'IMAGE' && 
 											(headers ? headers[index] || '' : keyname)
 										}
-										{sortableColumns && typeof sortableColumns[index] === 'string' &&  						
-											<TableColumnSort sort={currentSort} columnName={sortableColumns[index]} callback={changeSortCallbackLocal}/>
+										{ displayRows[0][keyname]?.TYPE === 'CUSTOM' && displayRows[0][keyname]?.sort &&
+											<TableColumnSort sort={currentSort} columnName={keyname} callback={changeSortCallbackLocal}/>
 										}
 									</td>
 								)
