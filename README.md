@@ -131,24 +131,37 @@ const rows = [
 ]
 ```
 NOTE: the column width for each column will be set based on the maximum width of the value of the row with the longest entry (up to the max value).
+
+### HIDDEN object
+if you include an attribute with the name `HIDDEN` it will not be rendered, but it can contain hidden data that can be read in your `rowClick` function
+```js
+const rows = [{
+    HIDDEN: { id: 12345, notes: 'this note is hidden from the UI'},
+    name: 'Mr Stringman', // string
+    age: 55, // integer
+    score: 10535.553, // float
+    registered: true // boolean
+}]
+```
+
 ### IMAGE object
 you can create an image object using `TYPE: "IMAGE"`
 ```js
-const rows = [
+const rows = [{
     name: 'Bob',
     avatar: { 
         "TYPE": "IMAGE", 
         "url": "https://image.url", // required
         "cellStyle":{"textAlign": "center"}, // optional
         "rowStyle": {"height": "50px"} // optional
-]
+}]
 ```
 You can pass optional objects for `cellStyle` and `rowStyle` for optional styling needs.
 
 ### CHECKBOX object
 you can create a checkbox object using `TYPE: "CHECKBOX"`
 ```js
-const rows = [
+const rows = [{
     name: 'Bob',
     member: {
         "TYPE": "CHECKBOX", 
@@ -157,7 +170,7 @@ const rows = [
         "cellStyle":{"textAlign": "center"}, // optional
         "rowStyle": {"height": "50px"} // optional
         }
-]
+}]
 ```
 You can pass optional objects for `cellStyle` and `rowStyle` for optional styling needs.
 
@@ -183,13 +196,13 @@ const checkBoxesCallback = (checkboxes: string[]) => {
 ```jsx
 import { TableGrid } from 'ionic-react-tablegrid'
 const rows = [
-		{name: 'John', age: 20, eyes: 'brown'},
-		{name: 'Jane', age: 21, eyes: 'blue'},
-		{name: 'Joe', age: 22, eyes: 'green'},
-		{name: 'Jack', age: 23, eyes: 'brown'},
-		{name: 'Jill', age: 24, eyes: 'blue'},
-		{name: 'Juan', age: 25, eyes: 'green'},
-		{name: 'Jenny', age: 26, eyes: 'brown'}
+		{name: 'John', age: 20, eyes: 'brown', HIDDEN: {id: 1}},
+		{name: 'Jane', age: 21, eyes: 'blue', HIDDEN: {id: 2}},
+		{name: 'Joe', age: 22, eyes: 'green', HIDDEN: {id: 3}},
+		{name: 'Jack', age: 23, eyes: 'brown', HIDDEN: {id: 4}},
+		{name: 'Jill', age: 24, eyes: 'blue', HIDDEN: {id: 5}},
+		{name: 'Juan', age: 25, eyes: 'green', HIDDEN: {id: 6}},
+		{name: 'Jenny', age: 26, eyes: 'brown', HIDDEN: {id: 7}}
 	  ]
 const rowsWithThumbNail = [
     		{name: 'John', age: 20, eyes: 'brown',
@@ -208,7 +221,8 @@ const rowsWithCheckbox = [
         "id": "John"}
 ]
 const clickHandler = (row: any, index: number) => {
-    console.log(`you clicked item #${index}`, row)
+    console.log(`you clicked item #${index}`, row);
+    console.log(`the id of this row is ${row.HIDDEN.id}`);
 }
 const changeSort = (sort: any) => {
     // sort: Sort returns { orderBy: string, ascending: boolean }

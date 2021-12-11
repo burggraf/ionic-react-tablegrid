@@ -34,7 +34,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 			<table style={{  }} key={utilsService.randomKey()}>
 				<tbody>
 					<tr key={utilsService.randomKey()}>
-						{keys.map((keyname, index) => (
+						{keys.map((keyname, index) => keyname !== 'HIDDEN' ? (
 							<td
 								style={{ verticalAlign: 'bottom',  ...headerStyle }}
 								className='breakItUp TableGrid-header'
@@ -50,7 +50,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 									<TableColumnSort sort={sort} columnName={sortableColumns[index]} callback={changeSortCallback}/>
 								}
 							</td>
-						))}
+						): null)}
 					</tr>
 					{rows.map((row, index) => (
 						<tr key={utilsService.randomKey()} 
@@ -60,6 +60,10 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 							}}>
 							{keys.map((key/*, index*/) => {
 								// if (!Array.isArray(row[key])) {
+									// hande key === 'HIDDEN' here...
+								if (key === 'HIDDEN') {
+									return null;
+								}
 								if (typeof row[key] !== 'object') {
 									return (
 										<td
@@ -92,7 +96,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										case 'CHECKBOX':
 											return (
 												<td 
-													style={{ textAlign: 'center',  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													style={{ textAlign: 'center', paddingLeft: '15px', paddingRight: '15px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													onClick={(e) => {e.stopPropagation()}}
 													key={utilsService.randomKey()}>

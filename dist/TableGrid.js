@@ -25,12 +25,12 @@ export var TableGrid = function (_a) {
     // <div style={{ height: '100%', overflow: 'scroll' }}>
     _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: {} }, { children: _jsx("table", __assign({ style: {} }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) {
                                     var _a, _b;
-                                    return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' &&
+                                    return keyname !== 'HIDDEN' ? (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' &&
                                                 (headers ? headers[index] || '' : ''),
                                             ((_b = rows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) !== 'IMAGE' &&
                                                 (headers ? headers[index] || '' : keyname),
                                             sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
-                                                _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey()));
+                                                _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey())) : null;
                                 }) }, utilsService.randomKey()),
                             rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
                                     rowClick ? rowClick(row, index) : {};
@@ -38,6 +38,10 @@ export var TableGrid = function (_a) {
                                 } }, { children: keys.map(function (key /*, index*/) {
                                     var _a, _b, _c, _d, _e, _f, _g, _h;
                                     // if (!Array.isArray(row[key])) {
+                                    // hande key === 'HIDDEN' here...
+                                    if (key === 'HIDDEN') {
+                                        return null;
+                                    }
                                     if (typeof row[key] !== 'object') {
                                         return (_jsx("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_a = row[key]) === null || _a === void 0 ? void 0 : _a.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: row[key] }), utilsService.randomKey()));
                                     }
@@ -48,7 +52,7 @@ export var TableGrid = function (_a) {
                                             case 'IMAGE':
                                                 return (_jsx("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_e = row[key]) === null || _e === void 0 ? void 0 : _e.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
                                             case 'CHECKBOX':
-                                                return (_jsx("td", __assign({ style: __assign(__assign({ textAlign: 'center' }, rowStyle || {}), ((_f = row[key]) === null || _f === void 0 ? void 0 : _f.cellStyle) || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: row[key].value || row[key].checked, onIonChange: function (e) {
+                                                return (_jsx("td", __assign({ style: __assign(__assign({ textAlign: 'center', paddingLeft: '15px', paddingRight: '15px' }, rowStyle || {}), ((_f = row[key]) === null || _f === void 0 ? void 0 : _f.cellStyle) || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: row[key].value || row[key].checked, onIonChange: function (e) {
                                                             if (e.detail.checked) {
                                                                 checkedKeys.push(row[key].id);
                                                                 checksObj[row[key].id] = true;
