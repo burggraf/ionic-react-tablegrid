@@ -25,18 +25,18 @@ let checkedKeys: string[] = [];
 export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
 	const utilsService = UtilsService.getInstance(maxColumnWidth);
 	const keys = Object.keys(rows[0] || [])
-	const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
+	// const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
 	return (
 		// <div style={{ height: '100%', overflow: 'scroll' }}>
 		<div className="scroll-y">
 		<div className="scroll-x">
-			<div className="content-container" style={{ width: (gridWidth + 40) + 'px' }}>			
-			<table style={{ width: gridWidth + 'px' }} key={utilsService.randomKey()}>
+			<div className="content-container" style={{  }}>			
+			<table style={{  }} key={utilsService.randomKey()}>
 				<tbody>
 					<tr key={utilsService.randomKey()}>
 						{keys.map((keyname, index) => (
 							<td
-								style={{ verticalAlign: 'bottom', width: columnWidths[index] + 'px', ...headerStyle }}
+								style={{ verticalAlign: 'bottom',  ...headerStyle }}
 								className='breakItUp TableGrid-header'
 								key={utilsService.randomKey()}>
 								{rows[0][keyname]?.TYPE === 'IMAGE' && 
@@ -58,12 +58,12 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 								rowClick ? rowClick(row, index) : {};
 								console.log('checksObj', checksObj);
 							}}>
-							{keys.map((key, index) => {
+							{keys.map((key/*, index*/) => {
 								// if (!Array.isArray(row[key])) {
 								if (typeof row[key] !== 'object') {
 									return (
 										<td
-											style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+											style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{row[key]}
@@ -74,7 +74,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										case 'CUSTOM':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 														<div dangerouslySetInnerHTML={{"__html": row[key].html}} />
@@ -83,7 +83,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										case 'IMAGE':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<img src={row[key].url} alt={row[key].alt || ''} style={...row[key].itemStyle}/>
@@ -92,7 +92,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										case 'CHECKBOX':
 											return (
 												<td 
-													style={{ textAlign: 'center', width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													style={{ textAlign: 'center',  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													onClick={(e) => {e.stopPropagation()}}
 													key={utilsService.randomKey()}>
@@ -116,7 +116,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										case 'LINK':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle || {} }}
+													style={{  ...rowStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<a href={row[key].URL} target='_blank'>{row[key].TEXT}</a>
@@ -125,7 +125,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										case 'LINK_BUTTON':
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle || {} }}
+													style={{  ...rowStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<a href={row[key].URL} target='_blank' className='TableGrid-linkButton'>{row[key].TEXT}</a>
@@ -134,7 +134,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										default:
 											return (
 												<td
-													style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} } }
+													style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} } }
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													{JSON.stringify(row[key])}
@@ -145,7 +145,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 								} else {
 									return (
 										<td
-											style={{ width: columnWidths[index] + 'px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+											style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{JSON.stringify(row[key])}

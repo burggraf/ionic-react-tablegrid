@@ -44,5 +44,7 @@
   .content-container {
     min-width: 100%;
     min-height: 100%;
+    width: max-content;
+    margin-right: 30px;
     display: inline-block;
   }

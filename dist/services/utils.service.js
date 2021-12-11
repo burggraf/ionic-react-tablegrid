@@ -55,17 +55,6 @@ var UtilsService = /** @class */ (function () {
                     else if (typeof item === 'boolean') {
                         textWidth_1 = _this.getTextWidth(item.toString());
                     }
-                    else if (typeof item === 'object' && (item === null || item === void 0 ? void 0 : item.TYPE) && (item === null || item === void 0 ? void 0 : item.TYPE) === 'CUSTOM') {
-                        var tmpItem = document.createElement('div');
-                        tmpItem.innerHTML = item.html;
-                        var canvas = document.createElement('canvas');
-                        //const context: CanvasRenderingContext2D = canvas.getContext('2d');
-                        canvas.appendChild(tmpItem);
-                        console.log('canvas.width', canvas.width);
-                        console.log('canvas', canvas);
-                        textWidth_1 = canvas.width || 0;
-                        // dangerouslySetInnerHTML={{"__html": row[key].html}
-                    }
                     else if (typeof item === 'object' && (item === null || item === void 0 ? void 0 : item.TYPE) && (item === null || item === void 0 ? void 0 : item.TYPE) === 'CHECKBOX') {
                         textWidth_1 = 20;
                     }
