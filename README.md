@@ -132,11 +132,12 @@ const rows = [
 ```
 NOTE: the column width for each column will be set based on the maximum width of the value of the row with the longest entry (up to the max value).
 
-### HIDDEN object
-if you include an attribute with the name `HIDDEN` it will not be rendered, but it can contain hidden data that can be read in your `rowClick` function
+### HIDDEN Objects
+if an attribute name begins with `$` it will not be rendered, but it can contain hidden data that can be read in your `rowClick` function
 ```js
 const rows = [{
-    HIDDEN: { id: 12345, notes: 'this note is hidden from the UI'},
+    $id: 12345
+    $hidden_notes: 'this note is hidden from the UI',
     name: 'Mr Stringman', // string
     age: 55, // integer
     score: 10535.553, // float
@@ -196,13 +197,13 @@ const checkBoxesCallback = (checkboxes: string[]) => {
 ```jsx
 import { TableGrid } from 'ionic-react-tablegrid'
 const rows = [
-		{name: 'John', age: 20, eyes: 'brown', HIDDEN: {id: 1}},
-		{name: 'Jane', age: 21, eyes: 'blue', HIDDEN: {id: 2}},
-		{name: 'Joe', age: 22, eyes: 'green', HIDDEN: {id: 3}},
-		{name: 'Jack', age: 23, eyes: 'brown', HIDDEN: {id: 4}},
-		{name: 'Jill', age: 24, eyes: 'blue', HIDDEN: {id: 5}},
-		{name: 'Juan', age: 25, eyes: 'green', HIDDEN: {id: 6}},
-		{name: 'Jenny', age: 26, eyes: 'brown', HIDDEN: {id: 7}}
+		{name: 'John', age: 20, eyes: 'brown', $id: 1},
+		{name: 'Jane', age: 21, eyes: 'blue', $id: 2},
+		{name: 'Joe', age: 22, eyes: 'green', $id: 3},
+		{name: 'Jack', age: 23, eyes: 'brown', $id: 4},
+		{name: 'Jill', age: 24, eyes: 'blue', $id: 5},
+		{name: 'Juan', age: 25, eyes: 'green', $id: 6},
+		{name: 'Jenny', age: 26, eyes: 'brown', $id: 7}
 	  ]
 const rowsWithThumbNail = [
     		{name: 'John', age: 20, eyes: 'brown',
@@ -222,7 +223,7 @@ const rowsWithCheckbox = [
 ]
 const clickHandler = (row: any, index: number) => {
     console.log(`you clicked item #${index}`, row);
-    console.log(`the id of this row is ${row.HIDDEN.id}`);
+    console.log(`the id of this row is ${$id}`);
 }
 const changeSort = (sort: any) => {
     // sort: Sort returns { orderBy: string, ascending: boolean }

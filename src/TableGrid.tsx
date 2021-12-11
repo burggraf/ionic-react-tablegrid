@@ -34,23 +34,28 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 			<table style={{  }} key={utilsService.randomKey()}>
 				<tbody>
 					<tr key={utilsService.randomKey()}>
-						{keys.map((keyname, index) => keyname !== 'HIDDEN' ? (
-							<td
-								style={{ verticalAlign: 'bottom',  ...headerStyle }}
-								className='breakItUp TableGrid-header'
-								key={utilsService.randomKey()}>
-								{rows[0][keyname]?.TYPE === 'IMAGE' && 
-									(headers ? headers[index] || '' : '')
-								}
-								{rows[0][keyname]?.TYPE !== 'IMAGE' && 
-									(headers ? headers[index] || '' : keyname)
-								}
-								{/* { (typeof rows[0][keyname] === 'object' && rows[0][keyname].TYPE === 'IMAGE') ? '' : keyname } */}
-								{sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&  						
-									<TableColumnSort sort={sort} columnName={sortableColumns[index]} callback={changeSortCallback}/>
-								}
-							</td>
-						): null)}
+						{keys.map((keyname, index) => {
+							if (keyname.startsWith('$')) {
+								return;
+							} else {
+								return (
+									<td
+										style={{ verticalAlign: 'bottom',  ...headerStyle }}
+										className='breakItUp TableGrid-header'
+										key={utilsService.randomKey()}>
+										{rows[0][keyname]?.TYPE === 'IMAGE' && 
+											(headers ? headers[index] || '' : '')
+										}
+										{rows[0][keyname]?.TYPE !== 'IMAGE' && 
+											(headers ? headers[index] || '' : keyname)
+										}
+										{/* { (typeof rows[0][keyname] === 'object' && rows[0][keyname].TYPE === 'IMAGE') ? '' : keyname } */}
+										{sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&  						
+											<TableColumnSort sort={sort} columnName={sortableColumns[index]} callback={changeSortCallback}/>
+										}
+									</td>
+								)
+						}})};
 					</tr>
 					{rows.map((row, index) => (
 						<tr key={utilsService.randomKey()} 
@@ -59,10 +64,8 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 								console.log('checksObj', checksObj);
 							}}>
 							{keys.map((key/*, index*/) => {
-								// if (!Array.isArray(row[key])) {
-									// hande key === 'HIDDEN' here...
-								if (key === 'HIDDEN') {
-									return null;
+								if (key.startsWith('$')) {
+									return;
 								}
 								if (typeof row[key] !== 'object') {
 									return (

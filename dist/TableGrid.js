@@ -23,24 +23,27 @@ export var TableGrid = function (_a) {
     // const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
     return (
     // <div style={{ height: '100%', overflow: 'scroll' }}>
-    _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: {} }, { children: _jsx("table", __assign({ style: {} }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) {
-                                    var _a, _b;
-                                    return keyname !== 'HIDDEN' ? (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' &&
-                                                (headers ? headers[index] || '' : ''),
-                                            ((_b = rows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) !== 'IMAGE' &&
-                                                (headers ? headers[index] || '' : keyname),
-                                            sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
-                                                _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey())) : null;
-                                }) }, utilsService.randomKey()),
+    _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: {} }, { children: _jsx("table", __assign({ style: {} }, { children: _jsxs("tbody", { children: [_jsxs("tr", { children: [keys.map(function (keyname, index) {
+                                        var _a, _b;
+                                        if (keyname.startsWith('$')) {
+                                            return;
+                                        }
+                                        else {
+                                            return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' &&
+                                                        (headers ? headers[index] || '' : ''),
+                                                    ((_b = rows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) !== 'IMAGE' &&
+                                                        (headers ? headers[index] || '' : keyname),
+                                                    sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
+                                                        _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey()));
+                                        }
+                                    }), ";"] }, utilsService.randomKey()),
                             rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
                                     rowClick ? rowClick(row, index) : {};
                                     console.log('checksObj', checksObj);
                                 } }, { children: keys.map(function (key /*, index*/) {
                                     var _a, _b, _c, _d, _e, _f, _g, _h;
-                                    // if (!Array.isArray(row[key])) {
-                                    // hande key === 'HIDDEN' here...
-                                    if (key === 'HIDDEN') {
-                                        return null;
+                                    if (key.startsWith('$')) {
+                                        return;
                                     }
                                     if (typeof row[key] !== 'object') {
                                         return (_jsx("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_a = row[key]) === null || _a === void 0 ? void 0 : _a.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: row[key] }), utilsService.randomKey()));
