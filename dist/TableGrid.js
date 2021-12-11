@@ -16,10 +16,27 @@ import { TableColumnSort } from './TableColumnSort';
 import './TableGrid.css';
 var checksObj = {};
 var checkedKeys = [];
+var initialized = false;
 export var TableGrid = function (_a) {
     var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle, changeCheckboxesCallback = _a.changeCheckboxesCallback, maxColumnWidth = _a.maxColumnWidth;
     var utilsService = UtilsService.getInstance(maxColumnWidth);
     var keys = Object.keys(rows[0] || []);
+    if (rows.length === 0) {
+        return null;
+    }
+    // initialize checkboxes
+    if (!initialized) {
+        initialized = true;
+        rows.map(function (row) {
+            keys.map(function (key) {
+                var _a;
+                if (((_a = row[key]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'CHECKBOX' && (row[key].checked || row[key].value)) {
+                    checkedKeys.push(row[key].id);
+                    checksObj[row[key].id] = true;
+                }
+            });
+        });
+    }
     // const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
     return (
     // <div style={{ height: '100%', overflow: 'scroll' }}>
@@ -39,7 +56,6 @@ export var TableGrid = function (_a) {
                                     }), ";"] }, utilsService.randomKey()),
                             rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
                                     rowClick ? rowClick(row, index) : {};
-                                    console.log('checksObj', checksObj);
                                 } }, { children: keys.map(function (key /*, index*/) {
                                     var _a, _b, _c, _d, _e, _f, _g, _h;
                                     if (key.startsWith('$')) {
@@ -55,7 +71,7 @@ export var TableGrid = function (_a) {
                                             case 'IMAGE':
                                                 return (_jsx("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_e = row[key]) === null || _e === void 0 ? void 0 : _e.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
                                             case 'CHECKBOX':
-                                                return (_jsx("td", __assign({ style: __assign(__assign({ textAlign: 'center', paddingLeft: '15px', paddingRight: '15px' }, rowStyle || {}), ((_f = row[key]) === null || _f === void 0 ? void 0 : _f.cellStyle) || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: row[key].value || row[key].checked, onIonChange: function (e) {
+                                                return (_jsx("td", __assign({ style: __assign(__assign({ textAlign: 'center', paddingLeft: '15px', paddingRight: '15px' }, rowStyle || {}), ((_f = row[key]) === null || _f === void 0 ? void 0 : _f.cellStyle) || {}), className: 'breakItUp TableGrid-row', onClick: function (e) { e.stopPropagation(); } }, { children: _jsx(IonCheckbox, { mode: "ios", checked: checksObj[row[key].id], onIonChange: function (e) {
                                                             if (e.detail.checked) {
                                                                 checkedKeys.push(row[key].id);
                                                                 checksObj[row[key].id] = true;

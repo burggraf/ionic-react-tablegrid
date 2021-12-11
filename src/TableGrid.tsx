@@ -21,10 +21,28 @@ interface ContainerProps {
 
 const checksObj: any = {};
 let checkedKeys: string[] = [];
+let initialized = false;
 
 export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
 	const utilsService = UtilsService.getInstance(maxColumnWidth);
 	const keys = Object.keys(rows[0] || [])
+	if (rows.length === 0) {
+		return null;
+	}
+
+	// initialize checkboxes
+	if (!initialized) {
+		initialized = true;
+		rows.map((row: any) => {
+			keys.map((key) => {
+				if (row[key]?.TYPE === 'CHECKBOX' && (row[key].checked || row[key].value)) {
+					checkedKeys.push(row[key].id);
+					checksObj[row[key].id] = true;
+				}
+			})
+		});
+	}
+
 	// const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
 	return (
 		// <div style={{ height: '100%', overflow: 'scroll' }}>
@@ -61,7 +79,6 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 						<tr key={utilsService.randomKey()} 
 							onClick={() => {
 								rowClick ? rowClick(row, index) : {};
-								console.log('checksObj', checksObj);
 							}}>
 							{keys.map((key/*, index*/) => {
 								if (key.startsWith('$')) {
@@ -105,7 +122,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 													key={utilsService.randomKey()}>
 													<IonCheckbox 
 														mode="ios" 
-														checked={row[key].value || row[key].checked}
+														checked={checksObj[row[key].id]}
 														onIonChange={(e) => {
 															if(e.detail.checked) {
 																checkedKeys.push(row[key].id);
