@@ -3,15 +3,16 @@ import { IonCheckbox } from '@ionic/react'
 import { Sort } from './models/Sort'
 import UtilsService from './services/utils.service'
 import { TableColumnSort } from './TableColumnSort'
-
 import './TableGrid.css'
+
+import { useEffect, useState } from 'react'
 
 interface ContainerProps {
 	rows: any[];
 	headers?: any[];
     rowClick?: Function;
 	sort?: Sort;
-	changeSortCallback?: Function;
+	// changeSortCallback?: Function;
 	sortableColumns?: (string|null)[];
 	headerStyle?: object;
 	rowStyle?: object;
@@ -23,17 +24,23 @@ const checksObj: any = {};
 let checkedKeys: string[] = [];
 let initialized = false;
 
-export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, changeSortCallback, sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
+export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, /*changeSortCallback,*/ sortableColumns, headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
 	const utilsService = UtilsService.getInstance(maxColumnWidth);
 	const keys = Object.keys(rows[0] || [])
 	if (rows.length === 0) {
 		return null;
 	}
+	const [displayRows, setDisplayRows] = useState(rows);
+	const [currentSort, setCurrentSort] = useState<Sort>({ orderBy: sort?.orderBy || '', ascending: sort?.ascending || true });
+
+	useEffect(() => {
+		// updateDisplay
+	},[displayRows]);
 
 	// initialize checkboxes
 	if (!initialized) {
 		initialized = true;
-		rows.map((row: any) => {
+		displayRows.map((row: any) => {
 			keys.map((key) => {
 				if (row[key]?.TYPE === 'CHECKBOX' && (row[key].checked || row[key].value)) {
 					checkedKeys.push(row[key].id);
@@ -43,9 +50,37 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 		});
 	}
 
-	// const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
+	const changeSortCallbackLocal = (sort: Sort) => {
+		const newRows = [...displayRows];
+		newRows.sort((a: any, b: any) => {
+			const y = a[sort.orderBy];
+			const z = b[sort.orderBy];
+			if (sort.orderBy === '$price') {
+				if (
+					parseInt(y.replace(/,/g, '')) < parseInt(z.replace(/,/g, ''))
+				) {
+					return sort.ascending ? -1 : 1
+				}
+				if (
+					parseInt(y.replace(/,/g, '')) > parseInt(z.replace(/,/g, ''))
+				) {
+					return sort.ascending ? 1 : -1
+				}
+			} else {
+				if (y < z) {
+					return sort.ascending ? -1 : 1
+				}
+				if (y > z) {
+					return sort.ascending ? 1 : -1
+				}
+			}
+			return 0
+		});
+		setDisplayRows(newRows);
+		setCurrentSort(sort);
+	}
+
 	return (
-		// <div style={{ height: '100%', overflow: 'scroll' }}>
 		<div className="scroll-y">
 		<div className="scroll-x">
 			<div className="content-container" style={{  }}>			
@@ -61,21 +96,20 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										style={{ verticalAlign: 'bottom',  ...headerStyle }}
 										className='breakItUp TableGrid-header'
 										key={utilsService.randomKey()}>
-										{rows[0][keyname]?.TYPE === 'IMAGE' && 
+										{displayRows[0][keyname]?.TYPE === 'IMAGE' && 
 											(headers ? headers[index] || '' : '')
 										}
-										{rows[0][keyname]?.TYPE !== 'IMAGE' && 
+										{displayRows[0][keyname]?.TYPE !== 'IMAGE' && 
 											(headers ? headers[index] || '' : keyname)
 										}
-										{/* { (typeof rows[0][keyname] === 'object' && rows[0][keyname].TYPE === 'IMAGE') ? '' : keyname } */}
-										{sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&  						
-											<TableColumnSort sort={sort} columnName={sortableColumns[index]} callback={changeSortCallback}/>
+										{sortableColumns && typeof sortableColumns[index] === 'string' &&  						
+											<TableColumnSort sort={currentSort} columnName={sortableColumns[index]} callback={changeSortCallbackLocal}/>
 										}
 									</td>
 								)
 						}})};
 					</tr>
-					{rows.map((row, index) => (
+					{displayRows.map((row, index) => (
 						<tr key={utilsService.randomKey()} 
 							onClick={() => {
 								rowClick ? rowClick(row, index) : {};

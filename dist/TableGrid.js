@@ -9,25 +9,36 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { IonCheckbox } from '@ionic/react';
 import UtilsService from './services/utils.service';
 import { TableColumnSort } from './TableColumnSort';
 import './TableGrid.css';
+import { useEffect, useState } from 'react';
 var checksObj = {};
 var checkedKeys = [];
 var initialized = false;
 export var TableGrid = function (_a) {
-    var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, changeSortCallback = _a.changeSortCallback, sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle, changeCheckboxesCallback = _a.changeCheckboxesCallback, maxColumnWidth = _a.maxColumnWidth;
+    var rows = _a.rows, headers = _a.headers, rowClick = _a.rowClick, sort = _a.sort, /*changeSortCallback,*/ sortableColumns = _a.sortableColumns, headerStyle = _a.headerStyle, rowStyle = _a.rowStyle, changeCheckboxesCallback = _a.changeCheckboxesCallback, maxColumnWidth = _a.maxColumnWidth;
     var utilsService = UtilsService.getInstance(maxColumnWidth);
     var keys = Object.keys(rows[0] || []);
     if (rows.length === 0) {
         return null;
     }
+    var _b = useState(rows), displayRows = _b[0], setDisplayRows = _b[1];
+    var _c = useState({ orderBy: (sort === null || sort === void 0 ? void 0 : sort.orderBy) || '', ascending: (sort === null || sort === void 0 ? void 0 : sort.ascending) || true }), currentSort = _c[0], setCurrentSort = _c[1];
+    useEffect(function () {
+        // updateDisplay
+    }, [displayRows]);
     // initialize checkboxes
     if (!initialized) {
         initialized = true;
-        rows.map(function (row) {
+        displayRows.map(function (row) {
             keys.map(function (key) {
                 var _a;
                 if (((_a = row[key]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'CHECKBOX' && (row[key].checked || row[key].value)) {
@@ -37,24 +48,47 @@ export var TableGrid = function (_a) {
             });
         });
     }
-    // const { gridWidth, columnWidths } = utilsService.getGridWidths(rows, headers)
-    return (
-    // <div style={{ height: '100%', overflow: 'scroll' }}>
-    _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: {} }, { children: _jsx("table", __assign({ style: {} }, { children: _jsxs("tbody", { children: [_jsxs("tr", { children: [keys.map(function (keyname, index) {
+    var changeSortCallbackLocal = function (sort) {
+        var newRows = __spreadArray([], displayRows);
+        newRows.sort(function (a, b) {
+            var y = a[sort.orderBy];
+            var z = b[sort.orderBy];
+            if (sort.orderBy === '$price') {
+                if (parseInt(y.replace(/,/g, '')) < parseInt(z.replace(/,/g, ''))) {
+                    return sort.ascending ? -1 : 1;
+                }
+                if (parseInt(y.replace(/,/g, '')) > parseInt(z.replace(/,/g, ''))) {
+                    return sort.ascending ? 1 : -1;
+                }
+            }
+            else {
+                if (y < z) {
+                    return sort.ascending ? -1 : 1;
+                }
+                if (y > z) {
+                    return sort.ascending ? 1 : -1;
+                }
+            }
+            return 0;
+        });
+        setDisplayRows(newRows);
+        setCurrentSort(sort);
+    };
+    return (_jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: {} }, { children: _jsx("table", __assign({ style: {} }, { children: _jsxs("tbody", { children: [_jsxs("tr", { children: [keys.map(function (keyname, index) {
                                         var _a, _b;
                                         if (keyname.startsWith('$')) {
                                             return;
                                         }
                                         else {
-                                            return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' &&
+                                            return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [((_a = displayRows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' &&
                                                         (headers ? headers[index] || '' : ''),
-                                                    ((_b = rows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) !== 'IMAGE' &&
+                                                    ((_b = displayRows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) !== 'IMAGE' &&
                                                         (headers ? headers[index] || '' : keyname),
-                                                    sort && changeSortCallback && sortableColumns && typeof sortableColumns[index] === 'string' &&
-                                                        _jsx(TableColumnSort, { sort: sort, columnName: sortableColumns[index], callback: changeSortCallback }, void 0)] }), utilsService.randomKey()));
+                                                    sortableColumns && typeof sortableColumns[index] === 'string' &&
+                                                        _jsx(TableColumnSort, { sort: currentSort, columnName: sortableColumns[index], callback: changeSortCallbackLocal }, void 0)] }), utilsService.randomKey()));
                                         }
                                     }), ";"] }, utilsService.randomKey()),
-                            rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
+                            displayRows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
                                     rowClick ? rowClick(row, index) : {};
                                 } }, { children: keys.map(function (key /*, index*/) {
                                     var _a, _b, _c, _d, _e, _f, _g, _h;

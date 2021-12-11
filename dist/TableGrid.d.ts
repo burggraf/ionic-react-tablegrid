@@ -6,7 +6,6 @@ interface ContainerProps {
     headers?: any[];
     rowClick?: Function;
     sort?: Sort;
-    changeSortCallback?: Function;
     sortableColumns?: (string | null)[];
     headerStyle?: object;
     rowStyle?: object;
