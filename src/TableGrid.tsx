@@ -34,6 +34,13 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 	const [currentSort, setCurrentSort] = useState<Sort>({ orderBy: sort?.orderBy || '', ascending: sort?.ascending || true });
 
 	useEffect(() => {
+		console.log('TableGrid useEffect: initial sort', sort);
+		if (sort) {
+			changeSortCallbackLocal(sort);
+		}	
+	},[])
+
+	useEffect(() => {
 		// updateDisplay
 	},[displayRows]);
 
@@ -53,8 +60,8 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 	const changeSortCallbackLocal = (sort: Sort) => {
 		const newRows = [...displayRows];
 		newRows.sort((a: any, b: any) => {
-			const y = a[sort.orderBy].sort;
-			const z = b[sort.orderBy].sort;
+			const y = (typeof a[sort.orderBy].sort !== 'undefined') ? a[sort.orderBy].sort : a[sort.orderBy];
+			const z = (typeof b[sort.orderBy].sort !== 'undefined') ? b[sort.orderBy].sort : b[sort.orderBy];
 			if (y < z) {
 				return sort.ascending ? -1 : 1
 			}
@@ -87,9 +94,9 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 											(headers ? headers[index] || '' : '')
 										}
 										{displayRows[0][keyname]?.TYPE !== 'IMAGE' && 
-											(headers ? headers[index] || '' : keyname)
+											(headers ? headers[index] || '' : keyname.replace(/\^$/,''))
 										}
-										{ displayRows[0][keyname]?.TYPE === 'CUSTOM' && displayRows[0][keyname]?.sort &&
+										{ (keyname.endsWith('^') || (displayRows[0][keyname]?.TYPE === 'CUSTOM' && displayRows[0][keyname]?.sort)) &&
 											<TableColumnSort sort={currentSort} columnName={keyname} callback={changeSortCallbackLocal}/>
 										}
 									</td>

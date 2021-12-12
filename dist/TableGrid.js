@@ -33,6 +33,12 @@ export var TableGrid = function (_a) {
     var _b = useState(rows), displayRows = _b[0], setDisplayRows = _b[1];
     var _c = useState({ orderBy: (sort === null || sort === void 0 ? void 0 : sort.orderBy) || '', ascending: (sort === null || sort === void 0 ? void 0 : sort.ascending) || true }), currentSort = _c[0], setCurrentSort = _c[1];
     useEffect(function () {
+        console.log('TableGrid useEffect: initial sort', sort);
+        if (sort) {
+            changeSortCallbackLocal(sort);
+        }
+    }, []);
+    useEffect(function () {
         // updateDisplay
     }, [displayRows]);
     // initialize checkboxes
@@ -51,8 +57,8 @@ export var TableGrid = function (_a) {
     var changeSortCallbackLocal = function (sort) {
         var newRows = __spreadArray([], displayRows);
         newRows.sort(function (a, b) {
-            var y = a[sort.orderBy].sort;
-            var z = b[sort.orderBy].sort;
+            var y = (typeof a[sort.orderBy].sort !== 'undefined') ? a[sort.orderBy].sort : a[sort.orderBy];
+            var z = (typeof b[sort.orderBy].sort !== 'undefined') ? b[sort.orderBy].sort : b[sort.orderBy];
             if (y < z) {
                 return sort.ascending ? -1 : 1;
             }
@@ -73,8 +79,8 @@ export var TableGrid = function (_a) {
                                             return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [((_a = displayRows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' &&
                                                         (headers ? headers[index] || '' : ''),
                                                     ((_b = displayRows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) !== 'IMAGE' &&
-                                                        (headers ? headers[index] || '' : keyname),
-                                                    ((_c = displayRows[0][keyname]) === null || _c === void 0 ? void 0 : _c.TYPE) === 'CUSTOM' && ((_d = displayRows[0][keyname]) === null || _d === void 0 ? void 0 : _d.sort) &&
+                                                        (headers ? headers[index] || '' : keyname.replace(/\^$/, '')),
+                                                    (keyname.endsWith('^') || (((_c = displayRows[0][keyname]) === null || _c === void 0 ? void 0 : _c.TYPE) === 'CUSTOM' && ((_d = displayRows[0][keyname]) === null || _d === void 0 ? void 0 : _d.sort))) &&
                                                         _jsx(TableColumnSort, { sort: currentSort, columnName: keyname, callback: changeSortCallbackLocal }, void 0)] }), utilsService.randomKey()));
                                         }
                                     }), ";"] }, utilsService.randomKey()),

@@ -105,6 +105,18 @@ const rows = [
 ```
 NOTE: the column width for each column will be set based on the maximum width of the value of the row with the longest entry (up to the max value).
 
+#### Sortable Columns
+If you want a column to be sortable (with a toggle in the header to sort ascending or descending), just add a `^` (caret) the end of the column name, like this:
+```js
+const rows = [
+    name^: 'Mr Stringman', // string
+    age^: 55, // integer
+    score^: 10535.553, // float
+    registered: true // boolean
+]
+```
+In the example above, columns `name^`, `age^`, and `score^` will be sortable.  The `^` symbols will be stripped from header names automatically.
+
 ### HIDDEN Objects
 if an attribute name begins with `$` it will not be rendered, but it can contain hidden data that can be read in your `rowClick` function
 ```js
