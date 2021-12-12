@@ -90,10 +90,10 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										style={{ verticalAlign: 'bottom',  ...headerStyle }}
 										className='breakItUp TableGrid-header'
 										key={utilsService.randomKey()}>
-										{displayRows[0][keyname]?.TYPE === 'IMAGE' && 
+										{(displayRows[0][keyname]?.TYPE === 'IMAGE' || displayRows[0][keyname]?.TYPE === 'CHECKBOX') && 
 											(headers ? headers[index] || '' : '')
 										}
-										{displayRows[0][keyname]?.TYPE !== 'IMAGE' && 
+										{(displayRows[0][keyname]?.TYPE !== 'IMAGE' && displayRows[0][keyname]?.TYPE !== 'CHECKBOX') && 
 											(headers ? headers[index] || '' : keyname.replace(/\^$/,''))
 										}
 										{ (keyname.endsWith('^') || (displayRows[0][keyname]?.TYPE === 'CUSTOM' && displayRows[0][keyname]?.sort)) &&
