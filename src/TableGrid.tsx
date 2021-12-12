@@ -75,6 +75,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 	}
 
 	return (
+		<div>
 		<div className="scroll-y">
 		<div className="scroll-x">
 			<div className="content-container" style={{  }}>			
@@ -209,6 +210,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 					))}
 				</tbody>
 			</table>
+		</div>
 		</div>
 		</div>
 		</div>
