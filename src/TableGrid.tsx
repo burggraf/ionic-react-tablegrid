@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 interface ContainerProps {
 	//rows: any[];
 	rows: any[];
-	setRows: any;
+	setRows?: any;
 
 	headers?: any[];
     rowClick?: Function;
