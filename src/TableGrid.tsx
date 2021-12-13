@@ -37,7 +37,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 		console.log('TableGrid useEffect: initial sort', sort);
 		if (sort) {
 			changeSortCallbackLocal(sort);
-		}	
+		}
 	},[])
 
 	useEffect(() => {
