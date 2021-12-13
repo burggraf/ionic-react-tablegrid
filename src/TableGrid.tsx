@@ -8,7 +8,10 @@ import './TableGrid.css'
 import { useEffect, useState } from 'react'
 
 interface ContainerProps {
+	//rows: any[];
 	rows: any[];
+	setRows?: any;
+
 	headers?: any[];
     rowClick?: Function;
 	sort?: Sort;
@@ -24,13 +27,13 @@ const checksObj: any = {};
 let checkedKeys: string[] = [];
 let initialized = false;
 
-export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, sort, /*changeSortCallback, sortableColumns,*/ headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
+export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, rowClick, sort, /*changeSortCallback, sortableColumns,*/ headerStyle, rowStyle, changeCheckboxesCallback, maxColumnWidth }) => {
 	const utilsService = UtilsService.getInstance(maxColumnWidth);
 	const keys = Object.keys(rows[0] || [])
 	if (rows.length === 0) {
 		return null;
 	}
-	const [displayRows, setDisplayRows] = useState(rows);
+
 	const [currentSort, setCurrentSort] = useState<Sort>({ orderBy: sort?.orderBy || '', ascending: sort?.ascending || true });
 
 	useEffect(() => {
@@ -42,12 +45,12 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 
 	useEffect(() => {
 		// updateDisplay
-	},[displayRows]);
+	},[rows]);
 
 	// initialize checkboxes
 	if (!initialized) {
 		initialized = true;
-		displayRows.map((row: any) => {
+		rows.map((row: any) => {
 			keys.map((key) => {
 				if (row[key]?.TYPE === 'CHECKBOX' && (row[key].checked || row[key].value)) {
 					checkedKeys.push(row[key].id);
@@ -58,7 +61,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 	}
 
 	const changeSortCallbackLocal = (sort: Sort) => {
-		const newRows = [...displayRows];
+		const newRows = [...rows];
 		newRows.sort((a: any, b: any) => {
 			const y = (typeof a[sort.orderBy].sort !== 'undefined') ? a[sort.orderBy].sort : a[sort.orderBy];
 			const z = (typeof b[sort.orderBy].sort !== 'undefined') ? b[sort.orderBy].sort : b[sort.orderBy];
@@ -70,7 +73,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 			}			
 			return 0
 		});
-		setDisplayRows(newRows);
+		setRows(newRows);
 		setCurrentSort(sort);
 	}
 
@@ -91,20 +94,20 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, headers, rowClick, s
 										style={{ verticalAlign: 'bottom',  ...headerStyle }}
 										className='breakItUp TableGrid-header'
 										key={utilsService.randomKey()}>
-										{(displayRows[0][keyname]?.TYPE === 'IMAGE' || displayRows[0][keyname]?.TYPE === 'CHECKBOX') && 
+										{(rows[0][keyname]?.TYPE === 'IMAGE' || rows[0][keyname]?.TYPE === 'CHECKBOX') && 
 											(headers ? headers[index] || '' : '')
 										}
-										{(displayRows[0][keyname]?.TYPE !== 'IMAGE' && displayRows[0][keyname]?.TYPE !== 'CHECKBOX') && 
+										{(rows[0][keyname]?.TYPE !== 'IMAGE' && rows[0][keyname]?.TYPE !== 'CHECKBOX') && 
 											(headers ? headers[index] || '' : keyname.replace(/\^$/,''))
 										}
-										{ (keyname.endsWith('^') || (displayRows[0][keyname]?.TYPE === 'CUSTOM' && displayRows[0][keyname]?.sort)) &&
+										{ (keyname.endsWith('^') || (rows[0][keyname]?.TYPE === 'CUSTOM' && rows[0][keyname]?.sort)) &&
 											<TableColumnSort sort={currentSort} columnName={keyname} callback={changeSortCallbackLocal}/>
 										}
 									</td>
 								)
 						}})};
 					</tr>
-					{displayRows.map((row, index) => (
+					{rows.map((row, index) => (
 						<tr key={utilsService.randomKey()} 
 							onClick={() => {
 								rowClick ? rowClick(row, index) : {};
