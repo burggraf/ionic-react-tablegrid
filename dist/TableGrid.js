@@ -69,20 +69,20 @@ export var TableGrid = function (_a) {
         setRows(newRows);
         setCurrentSort(sort);
     };
-    return (_jsx("div", { children: _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: {} }, { children: _jsx("table", __assign({ style: {} }, { children: _jsxs("tbody", { children: [_jsxs("tr", { children: [keys.map(function (keyname, index) {
-                                            var _a, _b, _c, _d, _e, _f;
-                                            if (keyname.startsWith('$')) {
-                                                return;
-                                            }
-                                            else {
-                                                return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [(((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' || ((_b = rows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) === 'CHECKBOX') &&
-                                                            (headers ? headers[index] || '' : ''),
-                                                        (((_c = rows[0][keyname]) === null || _c === void 0 ? void 0 : _c.TYPE) !== 'IMAGE' && ((_d = rows[0][keyname]) === null || _d === void 0 ? void 0 : _d.TYPE) !== 'CHECKBOX') &&
-                                                            (headers ? headers[index] || '' : keyname.replace(/\^$/, '')),
-                                                        (keyname.endsWith('^') || (((_e = rows[0][keyname]) === null || _e === void 0 ? void 0 : _e.TYPE) === 'CUSTOM' && ((_f = rows[0][keyname]) === null || _f === void 0 ? void 0 : _f.sort))) &&
-                                                            _jsx(TableColumnSort, { sort: currentSort, columnName: keyname, callback: changeSortCallbackLocal }, void 0)] }), utilsService.randomKey()));
-                                            }
-                                        }), ";"] }, utilsService.randomKey()),
+    return (_jsx("div", { children: _jsx("div", __assign({ className: "scroll-y" }, { children: _jsx("div", __assign({ className: "scroll-x" }, { children: _jsx("div", __assign({ className: "content-container", style: {} }, { children: _jsx("table", __assign({ style: {} }, { children: _jsxs("tbody", { children: [_jsx("tr", { children: keys.map(function (keyname, index) {
+                                        var _a, _b, _c, _d, _e, _f;
+                                        if (keyname.startsWith('$')) {
+                                            return;
+                                        }
+                                        else {
+                                            return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [(((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' || ((_b = rows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) === 'CHECKBOX') &&
+                                                        (headers ? headers[index] || '' : ''),
+                                                    (((_c = rows[0][keyname]) === null || _c === void 0 ? void 0 : _c.TYPE) !== 'IMAGE' && ((_d = rows[0][keyname]) === null || _d === void 0 ? void 0 : _d.TYPE) !== 'CHECKBOX') &&
+                                                        (headers ? headers[index] || '' : keyname.replace(/\^$/, '')),
+                                                    (keyname.endsWith('^') || (((_e = rows[0][keyname]) === null || _e === void 0 ? void 0 : _e.TYPE) === 'CUSTOM' && ((_f = rows[0][keyname]) === null || _f === void 0 ? void 0 : _f.sort))) &&
+                                                        _jsx(TableColumnSort, { sort: currentSort, columnName: keyname, callback: changeSortCallbackLocal }, void 0)] }), utilsService.randomKey()));
+                                        }
+                                    }) }, utilsService.randomKey()),
                                 rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
                                         rowClick ? rowClick(row, index) : {};
                                     } }, { children: keys.map(function (key /*, index*/) {

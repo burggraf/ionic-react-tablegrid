@@ -105,7 +105,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 										}
 									</td>
 								)
-						}})};
+						}})}
 					</tr>
 					{rows.map((row, index) => (
 						<tr key={utilsService.randomKey()} 
