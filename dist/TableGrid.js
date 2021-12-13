@@ -9,10 +9,14 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { IonCheckbox } from '@ionic/react';
@@ -54,7 +58,7 @@ export var TableGrid = function (_a) {
         });
     }
     var changeSortCallbackLocal = function (sort) {
-        var newRows = __spreadArray([], rows);
+        var newRows = __spreadArray([], rows, true);
         newRows.sort(function (a, b) {
             var _a, _b, _c, _d;
             var y = (typeof ((_a = a[sort.orderBy]) === null || _a === void 0 ? void 0 : _a.sort) !== 'undefined') ? ((_b = a[sort.orderBy]) === null || _b === void 0 ? void 0 : _b.sort) || '' : a[sort.orderBy] || '';
@@ -77,14 +81,11 @@ export var TableGrid = function (_a) {
                                         }
                                         else {
                                             return (_jsxs("td", __assign({ style: __assign({ verticalAlign: 'bottom' }, headerStyle), className: 'breakItUp TableGrid-header' }, { children: [(((_a = rows[0][keyname]) === null || _a === void 0 ? void 0 : _a.TYPE) === 'IMAGE' || ((_b = rows[0][keyname]) === null || _b === void 0 ? void 0 : _b.TYPE) === 'CHECKBOX') &&
-                                                        (headers ? headers[index] || '' : ''),
-                                                    (((_c = rows[0][keyname]) === null || _c === void 0 ? void 0 : _c.TYPE) !== 'IMAGE' && ((_d = rows[0][keyname]) === null || _d === void 0 ? void 0 : _d.TYPE) !== 'CHECKBOX') &&
-                                                        (headers ? headers[index] || '' : keyname.replace(/\^$/, '')),
-                                                    (keyname.endsWith('^') || (((_e = rows[0][keyname]) === null || _e === void 0 ? void 0 : _e.TYPE) === 'CUSTOM' && ((_f = rows[0][keyname]) === null || _f === void 0 ? void 0 : _f.sort))) &&
+                                                        (headers ? headers[index] || '' : ''), (((_c = rows[0][keyname]) === null || _c === void 0 ? void 0 : _c.TYPE) !== 'IMAGE' && ((_d = rows[0][keyname]) === null || _d === void 0 ? void 0 : _d.TYPE) !== 'CHECKBOX') &&
+                                                        (headers ? headers[index] || '' : keyname.replace(/\^$/, '')), (keyname.endsWith('^') || (((_e = rows[0][keyname]) === null || _e === void 0 ? void 0 : _e.TYPE) === 'CUSTOM' && ((_f = rows[0][keyname]) === null || _f === void 0 ? void 0 : _f.sort))) &&
                                                         _jsx(TableColumnSort, { sort: currentSort, columnName: keyname, callback: changeSortCallbackLocal }, void 0)] }), utilsService.randomKey()));
                                         }
-                                    }) }, utilsService.randomKey()),
-                                rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
+                                    }) }, utilsService.randomKey()), rows.map(function (row, index) { return (_jsx("tr", __assign({ onClick: function () {
                                         rowClick ? rowClick(row, index) : {};
                                     } }, { children: keys.map(function (key /*, index*/) {
                                         var _a, _b, _c, _d, _e, _f, _g, _h;
@@ -98,8 +99,7 @@ export var TableGrid = function (_a) {
                                             switch ((_c = row[key]) === null || _c === void 0 ? void 0 : _c.TYPE) {
                                                 case 'CUSTOM':
                                                     return (_jsxs("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_d = row[key]) === null || _d === void 0 ? void 0 : _d.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: [typeof row[key].html === 'string' &&
-                                                                _jsx("div", { dangerouslySetInnerHTML: { "__html": row[key].html } }, void 0),
-                                                            typeof row[key].html !== 'string' &&
+                                                                _jsx("div", { dangerouslySetInnerHTML: { "__html": row[key].html } }, void 0), typeof row[key].html !== 'string' &&
                                                                 _jsx("div", { children: row[key].html }, void 0)] }), utilsService.randomKey()));
                                                 case 'IMAGE':
                                                     return (_jsx("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_e = row[key]) === null || _e === void 0 ? void 0 : _e.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
