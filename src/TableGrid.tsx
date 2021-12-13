@@ -63,8 +63,8 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 	const changeSortCallbackLocal = (sort: Sort) => {
 		const newRows = [...rows];
 		newRows.sort((a: any, b: any) => {
-			const y = (typeof a[sort.orderBy].sort !== 'undefined') ? a[sort.orderBy].sort || '' : a[sort.orderBy] || '';
-			const z = (typeof b[sort.orderBy].sort !== 'undefined') ? b[sort.orderBy].sort || '' : b[sort.orderBy] || '';
+			const y = (typeof a[sort.orderBy]?.sort !== 'undefined') ? a[sort.orderBy]?.sort || '' : a[sort.orderBy] || '';
+			const z = (typeof b[sort.orderBy]?.sort !== 'undefined') ? b[sort.orderBy]?.sort || '' : b[sort.orderBy] || '';
 			if (y < z) {
 				return sort.ascending ? -1 : 1
 			}

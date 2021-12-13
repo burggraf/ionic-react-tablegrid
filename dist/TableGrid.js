@@ -56,8 +56,9 @@ export var TableGrid = function (_a) {
     var changeSortCallbackLocal = function (sort) {
         var newRows = __spreadArray([], rows);
         newRows.sort(function (a, b) {
-            var y = (typeof a[sort.orderBy].sort !== 'undefined') ? a[sort.orderBy].sort || '' : a[sort.orderBy] || '';
-            var z = (typeof b[sort.orderBy].sort !== 'undefined') ? b[sort.orderBy].sort || '' : b[sort.orderBy] || '';
+            var _a, _b, _c, _d;
+            var y = (typeof ((_a = a[sort.orderBy]) === null || _a === void 0 ? void 0 : _a.sort) !== 'undefined') ? ((_b = a[sort.orderBy]) === null || _b === void 0 ? void 0 : _b.sort) || '' : a[sort.orderBy] || '';
+            var z = (typeof ((_c = b[sort.orderBy]) === null || _c === void 0 ? void 0 : _c.sort) !== 'undefined') ? ((_d = b[sort.orderBy]) === null || _d === void 0 ? void 0 : _d.sort) || '' : b[sort.orderBy] || '';
             if (y < z) {
                 return sort.ascending ? -1 : 1;
             }
