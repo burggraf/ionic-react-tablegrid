@@ -1,6 +1,6 @@
 {
   "name": "ionic-react-tablegrid",
-  "version": "1.0.54",
+  "version": "1.0.55",
   "description": "Table / Grid component for Ionic Framework React",
   "homepage": "https://github.com/burggraf/ionic-react-tablegrid",
   "main": "dist/index.js",

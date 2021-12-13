@@ -96,7 +96,10 @@ export var TableGrid = function (_a) {
                                         else if (row[key] !== null && typeof row[key] === 'object' && ((_b = row[key]) === null || _b === void 0 ? void 0 : _b.TYPE)) {
                                             switch ((_c = row[key]) === null || _c === void 0 ? void 0 : _c.TYPE) {
                                                 case 'CUSTOM':
-                                                    return (_jsx("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_d = row[key]) === null || _d === void 0 ? void 0 : _d.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("div", { dangerouslySetInnerHTML: { "__html": row[key].html } }, void 0) }), utilsService.randomKey()));
+                                                    return (_jsxs("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_d = row[key]) === null || _d === void 0 ? void 0 : _d.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: [typeof row[key].html === 'string' &&
+                                                                _jsx("div", { dangerouslySetInnerHTML: { "__html": row[key].html } }, void 0),
+                                                            typeof row[key].html !== 'string' &&
+                                                                _jsx("div", { children: row[key].html }, void 0)] }), utilsService.randomKey()));
                                                 case 'IMAGE':
                                                     return (_jsx("td", __assign({ style: __assign(__assign({}, rowStyle || {}), ((_e = row[key]) === null || _e === void 0 ? void 0 : _e.cellStyle) || {}), className: 'breakItUp TableGrid-row' }, { children: _jsx("img", { src: row[key].url, alt: row[key].alt || '', style: row[key].itemStyle }, void 0) }), utilsService.randomKey()));
                                                 case 'CHECKBOX':

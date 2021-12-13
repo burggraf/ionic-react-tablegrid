@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 interface ContainerProps {
 	//rows: any[];
 	rows: any[];
-	setRows?: any;
+	setRows: any;
 
 	headers?: any[];
     rowClick?: Function;
@@ -133,7 +133,12 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 													style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
-														<div dangerouslySetInnerHTML={{"__html": row[key].html}} />
+														{ typeof row[key].html === 'string' &&
+															<div dangerouslySetInnerHTML={{"__html": row[key].html}} />
+														}
+														{ typeof row[key].html !== 'string' &&
+															<div>{row[key].html}</div>
+														}
 												</td>
 											)
 										case 'IMAGE':
