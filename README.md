@@ -55,6 +55,12 @@ example:
 ```json
 ["Name","Age","Eye Color"]
 ```
+Headers can contain `<IonIcon>` objects:
+example:
+```tsx
+["Name","Age",<IonIcon size="large" icon={eyeOutline} />]
+```
+
 ### rowClick (optional)
 takes a function that receives two parameters: the row that was clicked (object), and the row's index (number)
 
@@ -203,6 +209,21 @@ Example:
   { Product: "Car",
     Price: { "TYPE": "CUSTOM",
              "html": "USD$24,550.99" + "<br/>" + "Ride in comfort!",
+             "sort": 24550.99 }},
+]
+```
+In addition, the `html` property of a custom object can contain an object, such as `<IonIcon>`.
+Example:
+```js
+[ { Product: "Motorcycle",
+    Price: { "TYPE": "CUSTOM",
+             "html": "USD$14,999.99" + "<br/>" + "What a great price!",
+             "discount": <IonIcon icon={cashOutline} />,
+             "sort": 14999.99 }},
+  { Product: "Car",
+    Price: { "TYPE": "CUSTOM",
+             "html": "USD$24,550.99" + "<br/>" + "Ride in comfort!",
+             "discount": <IonIcon icon={cardOutline} />,
              "sort": 24550.99 }},
 ]
 ```
