@@ -32,6 +32,22 @@ example:
 ```
 
 The keys should be consistent among all rows, (like a database or spreadsheet).
+
+### setRows (optional, required if using sorting)
+takes a React `useState` setter
+
+This is used to dynamically change the data in the TableGrid.  For example:
+```tsx
+const [people, setPeople] = useState([{name:"Larry"},{name:"Moe"},{name:"Curley"}]);
+
+<TableGrid rows={people} setRows={setPeople} />
+```
+Say later, I want to add "Shemp" to the table:
+```tsx
+setPeople([{name:"Larry"},{name:"Moe"},{name:"Curley"},{name:"Shemp"}]);
+```
+As stated above, if using any sort columns, this is required because `TableGrid` will call the `setRows` function to update the table when the user clicks on the sort icon.
+
 ### headers (optional)
 takes an array of strings to be used as the column headers
 
@@ -194,7 +210,7 @@ Example:
 ## Example
 ```jsx
 import { TableGrid } from 'ionic-react-tablegrid'
-const rows = [
+const [rows, setRows] = useState([
     {name: 'John', age: 20, eyes: 'brown', $id: 1},
     {name: 'Jane', age: 21, eyes: 'blue', $id: 2},
     {name: 'Joe', age: 22, eyes: 'green', $id: 3},
@@ -202,7 +218,8 @@ const rows = [
     {name: 'Jill', age: 24, eyes: 'blue', $id: 5},
     {name: 'Juan', age: 25, eyes: 'green', $id: 6},
     {name: 'Jenny', age: 26, eyes: 'brown', $id: 7}
-]
+])
+
 const rowsWithThumbNail = [
     {name: 'John', age: 20, eyes: 'brown',
         thumbnail: { "TYPE": "IMAGE", "url": "https://image.url", 
@@ -238,7 +255,7 @@ const checkBoxesCallback = (checkboxes: string[]) => {
   // ['key1','key2','keyN']
 }
 return (
-    <TableGrid rows={rows} 
+    <TableGrid rows={rows} setRows={setRows}
         headers={['Name','Age','Eye Color']}
         rowClick={clickHandler} 
         sort={{"name", true}} 
