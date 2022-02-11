@@ -91,7 +91,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 							} else {
 								return (
 									<td
-										style={{ verticalAlign: 'bottom',  ...headerStyle }}
+										style={{ maxWidth: utilsService.maxColumnWidth,verticalAlign: 'bottom',  ...headerStyle }}
 										className='breakItUp TableGrid-header'
 										key={utilsService.randomKey()}>
 										{(rows[0][keyname]?.TYPE === 'IMAGE' || rows[0][keyname]?.TYPE === 'CHECKBOX') && 
@@ -119,7 +119,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 								if (typeof row[key] !== 'object') {
 									return (
 										<td
-											style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+											style={{  maxWidth: utilsService.maxColumnWidth,...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 											className='breakItUp TableGrid-row'
 											key={utilsService.randomKey()}>
 											{row[key]}
@@ -130,7 +130,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 										case 'CUSTOM':
 											return (
 												<td
-													style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													style={{  maxWidth: utilsService.maxColumnWidth,...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 														{ typeof row[key].html === 'string' &&
@@ -144,7 +144,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 										case 'IMAGE':
 											return (
 												<td
-													style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													style={{  maxWidth: utilsService.maxColumnWidth,...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<img src={row[key].url} alt={row[key].alt || ''} style={...row[key].itemStyle}/>
@@ -153,7 +153,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 										case 'CHECKBOX':
 											return (
 												<td 
-													style={{ textAlign: 'center', paddingLeft: '15px', paddingRight: '15px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
+													style={{ maxWidth: utilsService.maxColumnWidth,textAlign: 'center', paddingLeft: '15px', paddingRight: '15px', ...rowStyle || {}, ...row[key]?.cellStyle || {} }}
 													className='breakItUp TableGrid-row'
 													onClick={(e) => {e.stopPropagation()}}
 													key={utilsService.randomKey()}>
@@ -177,7 +177,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 										case 'LINK':
 											return (
 												<td
-													style={{  ...rowStyle || {} }}
+													style={{  maxWidth: utilsService.maxColumnWidth,...rowStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<a href={row[key].URL} target='_blank'>{row[key].TEXT}</a>
@@ -186,7 +186,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 										case 'LINK_BUTTON':
 											return (
 												<td
-													style={{  ...rowStyle || {} }}
+													style={{  maxWidth: utilsService.maxColumnWidth,...rowStyle || {} }}
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													<a href={row[key].URL} target='_blank' className='TableGrid-linkButton'>{row[key].TEXT}</a>
@@ -195,7 +195,7 @@ export const TableGrid: React.FC<ContainerProps> = ({ rows, setRows, headers, ro
 										default:
 											return (
 												<td
-													style={{  ...rowStyle || {}, ...row[key]?.cellStyle || {} } }
+													style={{  maxWidth: utilsService.maxColumnWidth,...rowStyle || {}, ...row[key]?.cellStyle || {} } }
 													className='breakItUp TableGrid-row'
 													key={utilsService.randomKey()}>
 													{JSON.stringify(row[key])}
