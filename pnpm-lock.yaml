@@ -1,18 +1,18 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@ionic/react': ^5.9.1
+  '@ionic/react': ^6.0.7
   '@types/react': ^17.0.5
   '@types/react-dom': ^17.0.4
   '@types/styled-components': ^5.1.9
-  ionicons: ^6.0.0
+  ionicons: ^6.0.1
   react: ^17.0.2
   react-dom: ^17.0.2
   typescript: '>=4.2.4'
 
 dependencies:
-  '@ionic/react': 5.9.2_react-dom@17.0.2+react@17.0.2
-  ionicons: 6.0.0
+  '@ionic/react': 6.0.7_react-dom@17.0.2+react@17.0.2
+  ionicons: 6.0.1
 
 devDependencies:
   '@types/react': 17.0.37
@@ -24,35 +24,35 @@ devDependencies:
 
 packages:
 
-  /@ionic/core/5.9.2:
-    resolution: {integrity: sha512-1ZqSBS8R6tGQsc+LsLxIRv0q3Ww6jwgJXLvdn6FmVWfpPbBvT+CjCuU9hqJ5qwM+atErblUMYSexvvpws8lGAA==}
+  /@ionic/core/6.0.7:
+    resolution: {integrity: sha512-Yl6itMcddfwfNNa6BjCxXxrIS+vPsrYSTfCmQwVfB4AiuZ5ZgE/jaZ9lMN7b0WIAy56bfX9etRlW+EjnK1znyQ==}
     dependencies:
-      '@stencil/core': 2.12.0
-      ionicons: 5.5.4
+      '@stencil/core': 2.13.0
+      ionicons: 6.0.1
       tslib: 2.3.1
     dev: false
 
-  /@ionic/react/5.9.2_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-4NYj7UwDzS4Ts1/3k8nAwxE9L+vEkvO4PdL27g3994dIsCc2TOt90jHmLb1SmVqLIhrkRX04wkWL6PVYaMRObw==}
+  /@ionic/react/6.0.7_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-Kzjepkv+TPMUwheiPGgWeoM5M/oDpLm7E+ixIG/hiwvdRRxgDHs91rVXZoCJJM2gsCrWaqeH3zuj7dXxOm4JsQ==}
     peerDependencies:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
     dependencies:
-      '@ionic/core': 5.9.2
-      ionicons: 5.5.4
+      '@ionic/core': 6.0.7
+      ionicons: 6.0.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       tslib: 2.3.1
     dev: false
 
-  /@stencil/core/2.10.0:
-    resolution: {integrity: sha512-15rWMTPQ/sp0lSV82HVCXkIya3QLN+uBl7pqK4JnTrp4HiLrzLmNbWjbvgCs55gw0lULbCIGbRIEsFz+Pe/Q+A==}
+  /@stencil/core/2.12.1:
+    resolution: {integrity: sha512-u24TZ+FEvjnZt5ZgIkLjLpUNsO6Ml3mUZqwmqk81w6RWWz75hgB5p4RFI5rvuErFeh2xvMIGo+pNdG24XUBz1A==}
     engines: {node: '>=12.10.0', npm: '>=6.0.0'}
     hasBin: true
     dev: false
 
-  /@stencil/core/2.12.0:
-    resolution: {integrity: sha512-hQlQKh5CUJe8g3L5avLLsfgVu95HMS2LToTtS7gpvvP0eKes1VvAC56uhI+vH4u44GZl9ck/g1rJBVRmMWu0LA==}
+  /@stencil/core/2.13.0:
+    resolution: {integrity: sha512-EEKHOHgYpg3/iFUKMXTZJjUayRul7sXDwNw0OGgkEOe4t7JWiibDkzUHuruvpbqEydX+z1+ez5K2bMMY76c2wA==}
     engines: {node: '>=12.10.0', npm: '>=6.0.0'}
     hasBin: true
     dev: false
@@ -104,16 +104,10 @@ packages:
       react-is: 16.13.1
     dev: true
 
-  /ionicons/5.5.4:
-    resolution: {integrity: sha512-3ph8X9my3inhabWEZ7N0XRA0MnnNQ1v9a602mLNgWsIXnxE9G5BybIZ/pws/OZZ/hoNlvSjk801N03yL9/FNgQ==}
+  /ionicons/6.0.1:
+    resolution: {integrity: sha512-xQekOJsxH82O7oB+3F60zeRggCdND9pJ/k0E6IJDVUGGlCj5mlyFqNgxUimytKgstPGv3S+3EmCxjefvtGgWUg==}
     dependencies:
-      '@stencil/core': 2.10.0
-    dev: false
-
-  /ionicons/6.0.0:
-    resolution: {integrity: sha512-p83W1T8jZUlllHAjuIWaDQbI36OYqdrwcf8MhYbKW7+9rjGlCMP9+5OaR0W7tl0QfM004uAiy/zkc7HTpDNKgA==}
-    dependencies:
-      '@stencil/core': 2.10.0
+      '@stencil/core': 2.12.1
     dev: false
 
   /js-tokens/4.0.0:
